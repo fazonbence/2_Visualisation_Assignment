@@ -1,0 +1,85 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    
+      <meta charset="utf-8">
+      <title>Bokeh Plot</title>
+      
+      
+        
+          
+        
+        
+          
+        <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.3.min.js" integrity="sha384-T2yuo9Oe71Cz/I4X9Ac5+gpEa5a8PpJCDlqKYO0CfAuEszu1JrXLl8YugMqYe3sM" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            Bokeh.set_log_level("info");
+        </script>
+        
+      
+      
+    
+  </head>
+  
+  
+  <body>
+    
+      
+        
+          
+          
+            
+              <div class="bk-root" id="5d9e355c-d249-43db-9db4-2e8f7aa49ef2" data-root-id="1478"></div>
+            
+          
+        
+      
+      
+        <script type="application/json" id="1595">
+          {"73778bc2-0f1e-4daa-90a9-d99940171c58":{"roots":{"references":[{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#1f77b4"},"height":{"value":0.4},"left":{"field":"Time_min"},"line_alpha":{"value":0.1},"line_color":{"value":"#1f77b4"},"right":{"field":"Time_max"},"y":{"field":"Age"}},"id":"1512","type":"HBar"},{"attributes":{},"id":"1485","type":"LinearScale"},{"attributes":{"factors":["African American","Caucasian","Hispanic","Race not stated","Unknown racial group"]},"id":"1483","type":"FactorRange"},{"attributes":{"source":{"id":"1477"}},"id":"1514","type":"CDSView"},{"attributes":{"axis_label":"Time (seconds)","formatter":{"id":"1518"},"ticker":{"id":"1490"}},"id":"1489","type":"LinearAxis"},{"attributes":{},"id":"1500","type":"ResetTool"},{"attributes":{"formatter":{"id":"1516"},"ticker":{"id":"1494"}},"id":"1493","type":"CategoricalAxis"},{"attributes":{"axis":{"id":"1489"},"ticker":null},"id":"1492","type":"Grid"},{"attributes":{"data_source":{"id":"1477"},"glyph":{"id":"1511"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1512"},"selection_glyph":null,"view":{"id":"1514"}},"id":"1513","type":"GlyphRenderer"},{"attributes":{},"id":"1494","type":"CategoricalTicker"},{"attributes":{},"id":"1499","type":"SaveTool"},{"attributes":{},"id":"1490","type":"BasicTicker"},{"attributes":{},"id":"1487","type":"CategoricalScale"},{"attributes":{"end":80,"start":50},"id":"1481","type":"Range1d"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto","tools":[{"id":"1496"},{"id":"1497"},{"id":"1498"},{"id":"1499"},{"id":"1500"},{"id":"1501"}]},"id":"1503","type":"Toolbar"},{"attributes":{"fill_color":{"value":"#1f77b4"},"height":{"value":0.4},"left":{"field":"Time_min"},"line_color":{"value":"#1f77b4"},"right":{"field":"Time_max"},"y":{"field":"Age"}},"id":"1511","type":"HBar"},{"attributes":{},"id":"1521","type":"UnionRenderers"},{"attributes":{},"id":"1496","type":"PanTool"},{"attributes":{"below":[{"id":"1489"}],"center":[{"id":"1492"},{"id":"1495"}],"left":[{"id":"1493"}],"outline_line_color":null,"plot_height":550,"plot_width":400,"renderers":[{"id":"1513"}],"title":{"id":"1479"},"toolbar":{"id":"1503"},"toolbar_location":null,"x_range":{"id":"1481"},"x_scale":{"id":"1485"},"y_range":{"id":"1483"},"y_scale":{"id":"1487"}},"id":"1478","subtype":"Figure","type":"Plot"},{"attributes":{},"id":"1522","type":"Selection"},{"attributes":{"bottom_units":"screen","fill_alpha":0.5,"fill_color":"lightgrey","left_units":"screen","level":"overlay","line_alpha":1.0,"line_color":"black","line_dash":[4,4],"line_width":2,"right_units":"screen","top_units":"screen"},"id":"1502","type":"BoxAnnotation"},{"attributes":{"text":"Time Spreads for Sprint Medalists (by Year)"},"id":"1479","type":"Title"},{"attributes":{"data":{"Ethnic or Racial Group":["African American","Caucasian","Hispanic","Race not stated","Unknown racial group"],"Patient Id_25%":{"__ndarray__":"AAAAAEBZ4EAAAAAAIFngQAAAAAAgYeFAAAAAAICk4EAAAAAAwFHgQA==","dtype":"float64","order":"little","shape":[5]},"Patient Id_50%":{"__ndarray__":"AAAAAKBh4UAAAAAAoGHhQAAAAACgZeFAAAAAALCt4EAAAAAA4GDgQA==","dtype":"float64","order":"little","shape":[5]},"Patient Id_75%":{"__ndarray__":"AAAAAIBn4UAAAAAAoKLhQAAAAADgp+FAAAAAAOC24EAAAAAAwGHgQA==","dtype":"float64","order":"little","shape":[5]},"Patient Id_count":{"__ndarray__":"AAAAAACwdkAAAAAAAGiYQAAAAAAAQF5AAAAAAAAANkAAAAAAAOBsQA==","dtype":"float64","order":"little","shape":[5]},"Patient Id_max":{"__ndarray__":"AAAAAOCo4UAAAAAAAKrhQAAAAAAgqeFAAAAAAOC24EAAAAAAoGLhQA==","dtype":"float64","order":"little","shape":[5]},"Patient Id_mean":{"__ndarray__":"RhdddDH84EAkWmFzgAPhQIwuuuhiauFAAAAAALCt4EAxDMMwLG3gQA==","dtype":"float64","order":"little","shape":[5]},"Patient Id_min":{"__ndarray__":"AAAAAKBM4EAAAAAA4EvgQAAAAAAApOBAAAAAAICk4EAAAAAAYE3gQA==","dtype":"float64","order":"little","shape":[5]},"Patient Id_std":{"__ndarray__":"32wCSesLkkDYBbn+OFSSQNDzgLXRpIFAu2Y/j7LOUkCVecZQZNJ9QA==","dtype":"float64","order":"little","shape":[5]}},"selected":{"id":"1522"},"selection_policy":{"id":"1521"}},"id":"1477","type":"ColumnDataSource"},{"attributes":{},"id":"1497","type":"WheelZoomTool"},{"attributes":{},"id":"1501","type":"HelpTool"},{"attributes":{},"id":"1516","type":"CategoricalTickFormatter"},{"attributes":{"axis":{"id":"1493"},"dimension":1,"grid_line_color":null,"ticker":null},"id":"1495","type":"Grid"},{"attributes":{},"id":"1518","type":"BasicTickFormatter"},{"attributes":{"overlay":{"id":"1502"}},"id":"1498","type":"BoxZoomTool"}],"root_ids":["1478"]},"title":"Bokeh Application","version":"2.2.3"}}
+        </script>
+        <script type="text/javascript">
+          (function() {
+            var fn = function() {
+              Bokeh.safely(function() {
+                (function(root) {
+                  function embed_document(root) {
+                    
+                  var docs_json = document.getElementById('1595').textContent;
+                  var render_items = [{"docid":"73778bc2-0f1e-4daa-90a9-d99940171c58","root_ids":["1478"],"roots":{"1478":"5d9e355c-d249-43db-9db4-2e8f7aa49ef2"}}];
+                  root.Bokeh.embed.embed_items(docs_json, render_items);
+                
+                  }
+                  if (root.Bokeh !== undefined) {
+                    embed_document(root);
+                  } else {
+                    var attempts = 0;
+                    var timer = setInterval(function(root) {
+                      if (root.Bokeh !== undefined) {
+                        clearInterval(timer);
+                        embed_document(root);
+                      } else {
+                        attempts++;
+                        if (attempts > 100) {
+                          clearInterval(timer);
+                          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                        }
+                      }
+                    }, 10, root)
+                  }
+                })(window);
+              });
+            };
+            if (document.readyState != "loading") fn();
+            else document.addEventListener("DOMContentLoaded", fn);
+          })();
+        </script>
+    
+  </body>
+  
+</html>
