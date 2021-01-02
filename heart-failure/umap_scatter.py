@@ -1,20 +1,43 @@
+from typing import Tuple
+
 from bokeh.models import (
     BoxZoomTool,
     CDSView,
+    CustomJS,
+    Div,
     GroupFilter,
     LassoSelectTool,
     ResetTool,
+    TapTool,
     WheelZoomTool,
     ZoomInTool,
 )
 from bokeh.palettes import colorblind
 from bokeh.plotting import Figure, figure
 
-from data import HeartFailureProvider
 import ourownfilters as oof
+from data import HeartFailureProvider
 
-def get_umap(data_provider: HeartFailureProvider) -> Figure:
-    
+
+def get_initial_img(data_provider: HeartFailureProvider) -> Div:
+    return Div(
+        text=data_provider.data_ds.data["img_html"][0],
+        width=512,
+        height=512,
+        name="img_div",
+    )
+
+
+def get_initial_img_info(data_provider: HeartFailureProvider) -> Div:
+    return Div(
+        text=data_provider.data_ds.data["img_info"][0],
+        width=512,
+        height=60,
+        name="img_info_div",
+    )
+
+
+def get_umap(data_provider: HeartFailureProvider) -> Tuple[Figure, Div, Div]:
     TOOLTIPS = [
         ("index", "$index"),
         ("(x,y)", "($x, $y)"),
@@ -44,10 +67,7 @@ def get_umap(data_provider: HeartFailureProvider) -> Figure:
 
         view_train = CDSView(
             source=data_provider.data_ds,
-            filters=[
-                oof.TrainingSet,
-                oof.DiagnosisType(label),
-            ],
+            filters=[oof.TrainingSet, oof.DiagnosisType(label),],
         )
 
         umap_scatter.circle(
@@ -63,10 +83,7 @@ def get_umap(data_provider: HeartFailureProvider) -> Figure:
 
         view_test = CDSView(
             source=data_provider.data_ds,
-            filters=[
-                oof.TrainingSet,
-                oof.DiagnosisType(label),
-            ],
+            filters=[oof.TrainingSet, oof.DiagnosisType(label),],
         )
 
         umap_scatter.triangle(
@@ -85,6 +102,7 @@ def get_umap(data_provider: HeartFailureProvider) -> Figure:
     umap_scatter.add_tools(ZoomInTool())
     umap_scatter.add_tools(ResetTool())
     umap_scatter.add_tools(BoxZoomTool())
+    umap_scatter.add_tools(TapTool())
 
     umap_scatter.legend.label_text_font_size = "20pt"
     umap_scatter.yaxis.major_label_text_font_size = "15pt"
@@ -92,4 +110,23 @@ def get_umap(data_provider: HeartFailureProvider) -> Figure:
     umap_scatter.legend.location = "top_left"
     umap_scatter.legend.click_policy = "hide"
 
-    return umap_scatter
+    img = get_initial_img(data_provider)
+    img_info = get_initial_img_info(data_provider)
+
+    data_provider.data_ds.selected.js_on_change(
+        "indices",
+        CustomJS(
+            args=dict(datasource=data_provider.data_ds, img=img, img_info=img_info),
+            code="""
+                var inds = cb_obj.indices;
+                var d1 = datasource.data;
+                img.text = d1['img_html'][inds[0]];
+                img_info.text = d1['img_info'][inds[0]];
+                img.change.emit();
+                img_info.change.emit();
+                """,
+        ),
+    )
+    print(type(img))
+
+    return umap_scatter, img, img_info
