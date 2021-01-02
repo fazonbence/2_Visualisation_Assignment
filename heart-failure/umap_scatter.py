@@ -79,6 +79,9 @@ def get_umap(data_provider: HeartFailureProvider) -> Tuple[Figure, Div, Div]:
             color=col,
             alpha=0.8,
             legend_label=str(label) + " train",
+            selection_line_color="black",
+            selection_line_alpha=1,
+            selection_line_width=2,
         )
 
         view_test = CDSView(
@@ -95,6 +98,9 @@ def get_umap(data_provider: HeartFailureProvider) -> Tuple[Figure, Div, Div]:
             color=col,
             alpha=0.8,
             legend_label=str(label) + " test",
+            selection_line_color="black",
+            selection_line_alpha=1,
+            selection_line_width=2,
         )
 
     umap_scatter.add_tools(LassoSelectTool())
@@ -113,6 +119,7 @@ def get_umap(data_provider: HeartFailureProvider) -> Tuple[Figure, Div, Div]:
     img = get_initial_img(data_provider)
     img_info = get_initial_img_info(data_provider)
 
+    # show tile on selection of a point
     data_provider.data_ds.selected.js_on_change(
         "indices",
         CustomJS(
@@ -127,6 +134,5 @@ def get_umap(data_provider: HeartFailureProvider) -> Tuple[Figure, Div, Div]:
                 """,
         ),
     )
-    print(type(img))
 
     return umap_scatter, img, img_info
