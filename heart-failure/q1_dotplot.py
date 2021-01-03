@@ -30,6 +30,8 @@ def get_q1dot(data_provider: HeartFailureProvider):# -> Figure #for some reason 
     mycols = colorblind["Colorblind"][4]
     view_male = CDSView(source=data_provider.data_ds, filters=[oof.Females, oof.UniqueIdBool(data_provider.medical_data.size)])
     view_female = CDSView(source=data_provider.data_ds, filters=[oof.Males, oof.UniqueIdBool(data_provider.medical_data.size)])
+    view_remaining_male = CDSView(source=data_provider.data_ds, filters=[oof.Males,oof.Inverse_UniqueIdBool(data_provider.medical_data.size)])
+    view_remaining_female = CDSView(source=data_provider.data_ds, filters=[oof.Females,oof.Inverse_UniqueIdBool(data_provider.medical_data.size)])
 
     p1 = figure(title="Ethnic groups and time of infection ",
                 y_range=data_provider.medical_data['Ethnic or Racial Group'].unique(),
@@ -51,6 +53,11 @@ def get_q1dot(data_provider: HeartFailureProvider):# -> Figure #for some reason 
 
     p1.circle(x='Age', y='Ethnic or Racial Group',
               fill_alpha=0.2, size=10, source=data_provider.data_ds, legend_label="male", view=view_male,color=mycols[0])
+
+    p1.circle(x='Age', y='Ethnic or Racial Group',
+              fill_alpha=0.2, size=10, source=data_provider.data_ds, legend_label="male", view=view_remaining_female,color='rgba(0, 0, 0, 0)')
+    p1.circle(x='Age', y='Ethnic or Racial Group',
+              fill_alpha=0.2, size=10, source=data_provider.data_ds, legend_label="male", view=view_remaining_male,color='rgba(0, 0, 0, 0)')
     
     p1.add_tools(LassoSelectTool())
 
