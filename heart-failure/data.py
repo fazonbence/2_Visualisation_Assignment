@@ -8,3 +8,4 @@ class HeartFailureProvider:
         self.medical_data = pd.read_csv(medical_data_path)
         self.data_ds = ColumnDataSource(self.medical_data)
         # self.data_view = CDSView(filters=[], source=self.data_ds)
+
