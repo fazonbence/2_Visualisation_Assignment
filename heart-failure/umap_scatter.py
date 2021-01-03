@@ -14,6 +14,7 @@ from data import HeartFailureProvider
 import ourownfilters as oof
 
 def get_umap(data_provider: HeartFailureProvider) -> Figure:
+    
     TOOLTIPS = [
         ("index", "$index"),
         ("(x,y)", "($x, $y)"),
