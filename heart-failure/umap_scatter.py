@@ -11,7 +11,7 @@ from bokeh.palettes import colorblind
 from bokeh.plotting import Figure, figure
 
 from data import HeartFailureProvider
-
+import ourownfilters as oof
 
 def get_umap(data_provider: HeartFailureProvider) -> Figure:
     TOOLTIPS = [
@@ -44,8 +44,8 @@ def get_umap(data_provider: HeartFailureProvider) -> Figure:
         view_train = CDSView(
             source=data_provider.data_ds,
             filters=[
-                GroupFilter(column_name="Dataset Name", group="training"),
-                GroupFilter(column_name="Diagnosis", group=label),
+                oof.TrainingSet,
+                oof.DiagnosisType(label),
             ],
         )
 
