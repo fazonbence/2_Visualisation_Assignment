@@ -63,8 +63,8 @@ def get_umap(data_provider: HeartFailureProvider) -> Figure:
         view_test = CDSView(
             source=data_provider.data_ds,
             filters=[
-                GroupFilter(column_name="Dataset Name", group="test"),
-                GroupFilter(column_name="Diagnosis", group=label),
+                oof.TrainingSet,
+                oof.DiagnosisType(label),
             ],
         )
 
