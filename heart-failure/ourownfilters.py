@@ -24,3 +24,11 @@ Inverse_UniqueIdBool =lambda length :  BooleanFilter([False if x%11==0 else True
 
 #Selects the rows with the same diagnosis type as the param
 DiagnosisType = lambda Type: GroupFilter(column_name="Diagnosis", group=Type);
+
+Diagnosis_Sick = GroupFilter(column_name="Diagnosis", group="chronic heart failure")
+
+
+#Selects the correct Disease Subtype
+DiseaseSubtype_cardiomyopathy = GroupFilter(column_name="Disease Subtype", group="cardiomyopathy")
+DiseaseSubtype_ischemiccardiomyopathy = GroupFilter(column_name="Disease Subtype", group="ischemic cardiomyopathy")
+DiseaseSubtype_myocardiumdisease = GroupFilter(column_name="Disease Subtype", group="myocardium disease")
