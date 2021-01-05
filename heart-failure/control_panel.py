@@ -1,7 +1,7 @@
 from typing import List, Tuple
 
-from bokeh.layouts import column
-from bokeh.models import CheckboxButtonGroup, CustomJS, CustomJSFilter
+from bokeh.layouts import column, row
+from bokeh.models import CheckboxButtonGroup, CustomJS, CustomJSFilter, Div
 from bokeh.models.filters import Filter
 
 from data import HeartFailureProvider
@@ -85,20 +85,71 @@ def _get_diagnosis_checkbox_and_filter(
     return diagnosis_checkbox, diagnosis_filter
 
 
+def _get_ethnicity_checkbox_and_filter(
+    data_provider: HeartFailureProvider,
+) -> Tuple[CheckboxButtonGroup, Filter]:
+    ethnicity_checkbox = CheckboxButtonGroup(
+        labels=[
+            "African American",
+            "Caucasian",
+            "Hispanic",
+            "Unknown racial group",
+            "Race not stated",
+        ],
+        active=[0, 1, 2, 3, 4],
+        name="control_panel_ethnic",
+    )
+
+    ethnicity_filter = CustomJSFilter(
+        args=dict(checkbox=ethnicity_checkbox),
+        code="""
+            const indices = []
+            var dict = {
+                "African American": 0,
+                "Caucasian": 1,
+                "Hispanic": 2,
+                "Unknown racial group": 3,
+                "Race not stated": 4,
+            }
+            for (var i = 0; i < source.get_length(); i++) {
+                var currentEthnicity = source.data['Ethnic or Racial Group'][i]
+                if (checkbox.active.includes(dict[currentEthnicity])) {
+                    indices.push(i)
+                }
+            }
+            return indices
+        """,
+    )
+
+    ethnicity_checkbox.js_on_click(
+        CustomJS(
+            args=dict(source=data_provider.data_ds),
+            code="""
+            console.log('checkbox_button_group: active=' + this.active, this.toString())
+            source.change.emit()
+            """,
+        )
+    )
+
+    return ethnicity_checkbox, ethnicity_filter
+
+
 def get_control_panel(
     data_provider: HeartFailureProvider,
 ) -> Tuple[CheckboxButtonGroup, List[Filter]]:
-
-    filters = []
 
     sex_checkbox, sex_filter = _get_sex_checkbox_and_filter(data_provider)
     diagnosis_checkbox, diagnosis_filter = _get_diagnosis_checkbox_and_filter(
         data_provider
     )
+    ethnicity_checkbox, ethnicity_filter = _get_ethnicity_checkbox_and_filter(
+        data_provider
+    )
 
-    checkbox_column = column(sex_checkbox, diagnosis_checkbox, name="control_panel")
+    checkbox_column = column(
+        sex_checkbox, diagnosis_checkbox, ethnicity_checkbox, name="control_panel"
+    )
 
-    filters.append(sex_filter)
-    filters.append(diagnosis_filter)
+    filters = [sex_filter, diagnosis_filter, ethnicity_filter]
 
     return checkbox_column, filters
