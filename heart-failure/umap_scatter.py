@@ -22,8 +22,8 @@ from data import HeartFailureProvider
 def get_initial_img(data_provider: HeartFailureProvider) -> Div:
     return Div(
         text=data_provider.data_ds.data["img_html"][0],
-        width=512,
-        height=512,
+        width=300,
+        height=300,
         name="img_div",
     )
 
@@ -31,7 +31,7 @@ def get_initial_img(data_provider: HeartFailureProvider) -> Div:
 def get_initial_img_info(data_provider: HeartFailureProvider) -> Div:
     return Div(
         text=data_provider.data_ds.data["img_info"][0],
-        width=512,
+        width=300,
         height=60,
         name="img_info_div",
     )
