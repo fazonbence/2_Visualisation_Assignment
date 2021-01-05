@@ -1,17 +1,8 @@
 from typing import Tuple
 
-from bokeh.models import (
-    BoxZoomTool,
-    CDSView,
-    CustomJS,
-    Div,
-    GroupFilter,
-    LassoSelectTool,
-    ResetTool,
-    TapTool,
-    WheelZoomTool,
-    ZoomInTool,
-)
+from bokeh.models import (BoxZoomTool, CDSView, CustomJS, Div, GroupFilter,
+                          LassoSelectTool, ResetTool, TapTool, WheelZoomTool,
+                          ZoomInTool)
 from bokeh.palettes import colorblind
 from bokeh.plotting import Figure, figure
 
