@@ -14,7 +14,7 @@ from bokeh.models import (
 from bokeh.palettes import colorblind
 from bokeh.plotting import Figure, figure
 
-import ourownfilters as oof
+import custom_filters as cf
 from data import HeartFailureProvider
 
 
@@ -66,7 +66,7 @@ def get_umap(data_provider: HeartFailureProvider) -> Tuple[Figure, Div, Div]:
 
         view_train = CDSView(
             source=data_provider.data_ds,
-            filters=[oof.TrainingSet, oof.DiagnosisType(label),],
+            filters=[cf.training_set, cf.diagnosis_type(label),],
         )
 
         umap_scatter.circle(
@@ -85,7 +85,7 @@ def get_umap(data_provider: HeartFailureProvider) -> Tuple[Figure, Div, Div]:
 
         view_test = CDSView(
             source=data_provider.data_ds,
-            filters=[oof.TestSet, oof.DiagnosisType(label),],
+            filters=[cf.test_set, cf.diagnosis_type(label),],
         )
 
         umap_scatter.triangle(

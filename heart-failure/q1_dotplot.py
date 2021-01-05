@@ -1,3 +1,5 @@
+from typing import List
+
 from bokeh.io import output_file, show
 from bokeh.models import (
     BoxZoomTool,
@@ -8,49 +10,50 @@ from bokeh.models import (
     WheelZoomTool,
     ZoomInTool,
 )
+from bokeh.models.filters import Filter
 from bokeh.palettes import colorblind
 from bokeh.plotting import Figure, figure, output_file, show
 
-import ourownfilters as oof
+import custom_filters as cf
 from data import CDSView, HeartFailureProvider
 
 
-def get_q1dot(
-    data_provider: HeartFailureProvider,
-):  # -> Figure #for some reason it messes w the comments below
+def get_q1dot(data_provider: HeartFailureProvider) -> Figure:
 
-    mainPlot = Create_DotPlot(
+    main_plot = create_dot_plot(
         data_provider, "Ethnic groups and time of infection", "main"
     )
-    Plot1 = Create_DotPlot(
+    plot1 = create_dot_plot(
         data_provider,
         "Ethnic groups and time of infection\n with cardiomyopathy",
         "plot1",
         250,
         500,
-        [oof.DiseaseSubtype_cardiomyopathy],
+        [cf.disease_subtype_cardiomyopathy],
     )
-    Plot2 = Create_DotPlot(
+    plot2 = create_dot_plot(
         data_provider,
         "Ethnic groups and time of infection\n with ischemic cardiomyopathy",
         "plot2",
         250,
         500,
-        [oof.DiseaseSubtype_ischemiccardiomyopathy],
+        [cf.disease_subtype_ischemiccardiomyopathy],
     )
-    # Plot3 = Create_DotPlot([oof.DiseaseSubtype_myocardiumdisease])
 
-    return mainPlot, Plot1, Plot2
+    return main_plot, plot1, plot2
 
 
-def Create_DotPlot(
+def create_dot_plot(
     data_provider: HeartFailureProvider,
-    title,
-    name,
-    height=500,
-    width=600,
-    extraFilters=[],
+    title: str,
+    name: str,
+    height: int = 500,
+    width: int = 600,
+    extra_filters: List[Filter] = None,
 ):
+    if extra_filters is None:
+        extra_filters = []
+
     TOOLTIPS = [
         ("index", "$index"),
         ("(x,y)", "($x, $y)"),
@@ -60,38 +63,38 @@ def Create_DotPlot(
     view_male = CDSView(
         source=data_provider.data_ds,
         filters=[
-            oof.Females,
-            oof.UniqueIdBool(data_provider.medical_data.size),
-            oof.Diagnosis_Sick,
+            cf.females,
+            cf.unique_id_bool(data_provider.medical_data.size),
+            cf.diagnosis_sick,
         ]
-        + extraFilters,
+        + extra_filters,
     )
     view_female = CDSView(
         source=data_provider.data_ds,
         filters=[
-            oof.Males,
-            oof.UniqueIdBool(data_provider.medical_data.size),
-            oof.Diagnosis_Sick,
+            cf.males,
+            cf.unique_id_bool(data_provider.medical_data.size),
+            cf.diagnosis_sick,
         ]
-        + extraFilters,
+        + extra_filters,
     )
     view_remaining_male = CDSView(
         source=data_provider.data_ds,
         filters=[
-            oof.Males,
-            oof.Inverse_UniqueIdBool(data_provider.medical_data.size),
-            oof.Diagnosis_Sick,
+            cf.males,
+            cf.inverse_unique_id_bool(data_provider.medical_data.size),
+            cf.diagnosis_sick,
         ]
-        + extraFilters,
+        + extra_filters,
     )
     view_remaining_female = CDSView(
         source=data_provider.data_ds,
         filters=[
-            oof.Females,
-            oof.Inverse_UniqueIdBool(data_provider.medical_data.size),
-            oof.Diagnosis_Sick,
+            cf.females,
+            cf.inverse_unique_id_bool(data_provider.medical_data.size),
+            cf.diagnosis_sick,
         ]
-        + extraFilters,
+        + extra_filters,
     )
 
     p1 = figure(
@@ -104,7 +107,6 @@ def Create_DotPlot(
         plot_width=width,
         name=name,
     )
-    print(data_provider.medical_data["Ethnic or Racial Group"].unique())
     p1.xaxis.axis_label = "Age"
     p1.yaxis.axis_label = "Ethnic group"
 
