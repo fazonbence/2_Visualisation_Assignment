@@ -18,10 +18,13 @@ import custom_filters as cf
 from data import CDSView, HeartFailureProvider
 
 
-def get_q1dot(data_provider: HeartFailureProvider) -> Figure:
+def get_q1dot(data_provider: HeartFailureProvider, extra_filters) -> Figure:
 
     main_plot = create_dot_plot(
-        data_provider, "Ethnic groups and time of infection", "main"
+        data_provider,
+        "Ethnic groups and time of infection",
+        "main",
+        extra_filters=extra_filters,
     )
     plot1 = create_dot_plot(
         data_provider,
@@ -29,7 +32,7 @@ def get_q1dot(data_provider: HeartFailureProvider) -> Figure:
         "plot1",
         250,
         500,
-        [cf.disease_subtype_cardiomyopathy],
+        [cf.disease_subtype_cardiomyopathy] + extra_filters,
     )
     plot2 = create_dot_plot(
         data_provider,
@@ -37,7 +40,7 @@ def get_q1dot(data_provider: HeartFailureProvider) -> Figure:
         "plot2",
         250,
         500,
-        [cf.disease_subtype_ischemiccardiomyopathy],
+        [cf.disease_subtype_ischemiccardiomyopathy] + extra_filters,
     )
 
     return main_plot, plot1, plot2
@@ -63,7 +66,7 @@ def create_dot_plot(
     view_male = CDSView(
         source=data_provider.data_ds,
         filters=[
-            cf.females,
+            cf.males,
             cf.unique_id_bool(data_provider.medical_data.size),
             cf.diagnosis_sick,
         ]
@@ -72,7 +75,7 @@ def create_dot_plot(
     view_female = CDSView(
         source=data_provider.data_ds,
         filters=[
-            cf.males,
+            cf.females,
             cf.unique_id_bool(data_provider.medical_data.size),
             cf.diagnosis_sick,
         ]
