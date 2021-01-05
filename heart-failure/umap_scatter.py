@@ -1,8 +1,17 @@
 from typing import Tuple
 
-from bokeh.models import (BoxZoomTool, CDSView, CustomJS, Div, GroupFilter,
-                          LassoSelectTool, ResetTool, TapTool, WheelZoomTool,
-                          ZoomInTool)
+from bokeh.models import (
+    BoxZoomTool,
+    CDSView,
+    CustomJS,
+    Div,
+    GroupFilter,
+    LassoSelectTool,
+    ResetTool,
+    TapTool,
+    WheelZoomTool,
+    ZoomInTool,
+)
 from bokeh.palettes import colorblind
 from bokeh.plotting import Figure, figure
 
@@ -77,7 +86,7 @@ def get_umap(data_provider: HeartFailureProvider) -> Tuple[Figure, Div, Div]:
 
         view_test = CDSView(
             source=data_provider.data_ds,
-            filters=[oof.TrainingSet, oof.DiagnosisType(label),],
+            filters=[oof.TestSet, oof.DiagnosisType(label),],
         )
 
         umap_scatter.triangle(
