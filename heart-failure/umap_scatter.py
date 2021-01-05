@@ -5,7 +5,6 @@ from bokeh.models import (
     CDSView,
     CustomJS,
     Div,
-    GroupFilter,
     LassoSelectTool,
     ResetTool,
     TapTool,
