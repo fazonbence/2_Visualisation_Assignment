@@ -1,39 +1,28 @@
-from bokeh.io import output_file, show
-from bokeh.models import ColumnDataSource, CDSView, BooleanFilter
-from bokeh.plotting import figure
-from bokeh.models import (
-    CategoricalColorMapper,
-    ColumnDataSource,
-    LassoSelectTool,
-    WheelZoomTool,
-    ZoomInTool,
-    BoxZoomTool,
-    ResetTool,
-)
-from bokeh.layouts import gridplot, column, row
 import numpy as np
 import pandas as pd
+from bokeh.io import output_file, show
+from bokeh.layouts import column, gridplot, row
+from bokeh.models import (BooleanFilter, BoxZoomTool, CategoricalColorMapper,
+                          CDSView, ColumnDataSource, LassoSelectTool,
+                          ResetTool, WheelZoomTool, ZoomInTool)
 from bokeh.palettes import colorblind
-from bokeh.plotting import Figure, figure
-from data import HeartFailureProvider
+from bokeh.plotting import Figure, figure, output_file, show
+
 import ourownfilters as oof
-from bokeh.plotting import figure, output_file, show
+from data import HeartFailureProvider
 
 
 def get_q1dot(data_provider: HeartFailureProvider):# -> Figure #for some reason it messes w the comments below   
     
-    mainPlot=Create_DotPlot(data_provider,"Ethnic groups and time of infection")
-    Plot1 = Create_DotPlot(data_provider,"Ethnic groups and time of infection\n with cardiomyopathy",250,500,[oof.DiseaseSubtype_cardiomyopathy]) 
-    Plot2 = Create_DotPlot(data_provider,"Ethnic groups and time of infection\n with ischemic cardiomyopathy",250,500,[oof.DiseaseSubtype_ischemiccardiomyopathy]) 
+    mainPlot=Create_DotPlot(data_provider,"Ethnic groups and time of infection", 'main')
+    Plot1 = Create_DotPlot(data_provider,"Ethnic groups and time of infection\n with cardiomyopathy", 'plot1', 250,500,[oof.DiseaseSubtype_cardiomyopathy]) 
+    Plot2 = Create_DotPlot(data_provider,"Ethnic groups and time of infection\n with ischemic cardiomyopathy", 'plot2',250,500,[oof.DiseaseSubtype_ischemiccardiomyopathy]) 
     #Plot3 = Create_DotPlot([oof.DiseaseSubtype_myocardiumdisease]) 
 
-    #finalPlot=gridplot([[mainPlot],[ Plot1, Plot2]])#, Plot3
-    finalPlot=row(mainPlot, column(Plot1, Plot2))
-    return finalPlot
-    #return Plot1
+    return mainPlot, Plot1, Plot2
 
 
-def Create_DotPlot(data_provider: HeartFailureProvider,title, height=500,width=600 ,extraFilters =[]):
+def Create_DotPlot(data_provider: HeartFailureProvider,title, name,height=500,width=600 ,extraFilters =[]):
     TOOLTIPS = [
         ("index", "$index"),
         ("(x,y)", "($x, $y)"),
@@ -51,7 +40,8 @@ def Create_DotPlot(data_provider: HeartFailureProvider,title, height=500,width=6
                 tools="save",
                 toolbar_location="left",
                 plot_height=height,
-                plot_width=width
+                plot_width=width,
+                name=name,
                 )
     print(data_provider.medical_data['Ethnic or Racial Group'].unique())
     p1.xaxis.axis_label = 'Age'
