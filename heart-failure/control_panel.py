@@ -2,17 +2,13 @@ from bokeh.io import show
 from bokeh.models import CheckboxButtonGroup, CustomJS, CustomJSFilter
 
 
-def get_control_panel(data_provider):
-
-    filters = []
-
-    LABELS = ["Male", "Female"]
-    checkbox_button_group = CheckboxButtonGroup(
-        labels=LABELS, active=[0, 1], name="control_panel"
+def _get_sex_checkbox_and_filter(data_provider):
+    sex_checkbox = CheckboxButtonGroup(
+        labels=["Male", "Female"], active=[0, 1], name="control_panel_sex"
     )
 
     sex_filter = CustomJSFilter(
-        args=dict(checkbox=checkbox_button_group),
+        args=dict(checkbox=sex_checkbox),
         code="""
             const indices = []
             var dict = {
@@ -29,9 +25,7 @@ def get_control_panel(data_provider):
         """,
     )
 
-    filters.append(sex_filter)
-
-    checkbox_button_group.js_on_click(
+    sex_checkbox.js_on_click(
         CustomJS(
             args=dict(source=data_provider.data_ds),
             code="""
@@ -41,4 +35,15 @@ def get_control_panel(data_provider):
         )
     )
 
-    return checkbox_button_group, filters
+    return sex_checkbox, sex_filter
+
+
+def get_control_panel(data_provider):
+
+    filters = []
+
+    sex_checkbox, sex_filter = _get_sex_checkbox_and_filter(data_provider)
+
+    filters.append(sex_filter)
+
+    return sex_checkbox, filters
