@@ -1,10 +1,18 @@
 from bokeh.io import output_file, show
-from bokeh.models import CDSView, LassoSelectTool
+from bokeh.models import (
+    BoxZoomTool,
+    CDSView,
+    LassoSelectTool,
+    ResetTool,
+    TapTool,
+    WheelZoomTool,
+    ZoomInTool,
+)
 from bokeh.palettes import colorblind
 from bokeh.plotting import Figure, figure, output_file, show
 
 import ourownfilters as oof
-from data import HeartFailureProvider
+from data import CDSView, HeartFailureProvider
 
 
 def get_q1dot(
@@ -109,6 +117,9 @@ def Create_DotPlot(
         legend_label="female",
         view=view_female,
         color=mycols[1],
+        selection_line_color="black",
+        selection_line_alpha=1,
+        selection_line_width=2,
     )
 
     p1.circle(
@@ -120,6 +131,9 @@ def Create_DotPlot(
         legend_label="male",
         view=view_male,
         color=mycols[0],
+        selection_line_color="black",
+        selection_line_alpha=1,
+        selection_line_width=2,
     )
 
     p1.circle(
@@ -131,6 +145,9 @@ def Create_DotPlot(
         legend_label="female",
         view=view_remaining_female,
         color="rgba(0, 0, 0, 0)",
+        selection_line_color="black",
+        selection_line_alpha=1,
+        selection_line_width=2,
     )
     p1.circle(
         x="Age",
@@ -141,9 +158,17 @@ def Create_DotPlot(
         legend_label="male",
         view=view_remaining_male,
         color="rgba(0, 0, 0, 0)",
+        selection_line_color="black",
+        selection_line_alpha=1,
+        selection_line_width=2,
     )
 
     p1.add_tools(LassoSelectTool())
+    p1.add_tools(WheelZoomTool())
+    p1.add_tools(ZoomInTool())
+    p1.add_tools(ResetTool())
+    p1.add_tools(BoxZoomTool())
+    p1.add_tools(TapTool())
 
     p1.legend.location = "top_left"
     p1.legend.click_policy = "hide"
