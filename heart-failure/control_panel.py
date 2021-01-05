@@ -147,7 +147,13 @@ def get_control_panel(
     )
 
     checkbox_column = column(
-        sex_checkbox, diagnosis_checkbox, ethnicity_checkbox, name="control_panel"
+        Div(text="Sex"),
+        sex_checkbox,
+        Div(text="Diagnosis"),
+        diagnosis_checkbox,
+        Div(text="Ethnic or Racial Group"),
+        ethnicity_checkbox,
+        name="control_panel",
     )
 
     filters = [sex_filter, diagnosis_filter, ethnicity_filter]
