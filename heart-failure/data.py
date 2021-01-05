@@ -16,7 +16,7 @@ class HeartFailureProvider:
         self.patient_ids = self.medical_data["Patient Id"].tolist()
         self.tile_ids = [f.split("_")[3] for f in self.filenames]
 
-        img_fmt = '<img src="{}/{}" ' 'alt="div_image" width="512" height="512">'
+        img_fmt = '<img src="{}/{}" ' 'alt="div_image" width="300" height="300">'
 
         img_info = [
             f"Patient ID: {p_id}, Tile ID: {t_id}"
