@@ -1,7 +1,6 @@
 import os
 
-from bokeh.layouts import gridplot
-from bokeh.plotting import curdoc, output_file, show
+from bokeh.plotting import curdoc
 
 from control_panel import get_control_panel
 from data import HeartFailureProvider
@@ -16,13 +15,6 @@ control_panel, filters = get_control_panel(data_provider)
 
 umap_scatter, img, img_info = get_umap(data_provider, filters)
 main_plot, plot1, plot2 = get_q1dot(data_provider, filters)
-
-plots = [umap_scatter, main_plot, plot1, plot2]
-
-
-# output to static HTML file
-# output_file("lines.html")
-# show(final_plot)
 
 
 curdoc().add_root(umap_scatter)

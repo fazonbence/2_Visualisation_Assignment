@@ -1,6 +1,6 @@
 from typing import List, Tuple
 
-from bokeh.layouts import column, row
+from bokeh.layouts import column
 from bokeh.models import CheckboxButtonGroup, CustomJS, CustomJSFilter, Div
 from bokeh.models.filters import Filter
 
