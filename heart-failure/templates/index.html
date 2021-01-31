@@ -18,6 +18,10 @@
         margin: 10px;
     }
 
+    .container {
+        margin: 0px;
+    }
+
     .slick-header-columns,
     .slick-header-column {
         background-color: #DDDDDD !important;
@@ -28,7 +32,7 @@
 {% endblock %}
 
 {% block contents%}
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-3">
             <h1>Chronic Heart Failure.</h1>
@@ -47,42 +51,37 @@
     </div>
     <div class="row">
 
-        <div class="col-6">
+        <div class="col-4">
             {{ embed(roots.umap) }}
         </div>
 
-        <div class="col">
+        <div class="col-4">
             {{ embed(roots.img_div) }}
             {{ embed(roots.img_info_div) }}
         </div>
-
+        <div class="col-4">
+            {{ embed(roots.q2_plot) }}
+        </div>
     </div>
 
     <div class="row">
 
-        <div class="col-6">
+        <div class="col-4 h-100">
             {{ embed(roots.main) }}
         </div>
-
-    </div>
-
-    <div class="row">
-
-        <div class="col">
-            {{ embed(roots.plot1) }}
+        <div class="col-4">
+            <div class="row h-50">
+                {{ embed(roots.plot1) }}
+            </div>
+            <div class="row h-50">
+                {{ embed(roots.plot2) }}
+            </div>
         </div>
-        <div class="col">
-            {{ embed(roots.plot2) }}
-        </div>
-
-    </div>
-    <div class="row">
-
-        <div class="col">
+        <div class="col-4">
             {{ embed(roots.q2_plot) }}
-        </div>        
-
+        </div>
     </div>
+   
 
 </div>
 {% endblock %}

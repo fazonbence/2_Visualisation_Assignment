@@ -11,6 +11,7 @@ from bokeh.models import (
     ZoomInTool,
 )
 from bokeh.models.filters import Filter
+from bokeh.layouts import column
 from bokeh.palettes import colorblind
 from bokeh.plotting import Figure, figure, output_file, show
 
