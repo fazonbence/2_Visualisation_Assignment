@@ -1,6 +1,8 @@
 from typing import List, Tuple
 
 from bokeh.layouts import column
+from bokeh.layouts import row
+from bokeh.layouts import layout
 from bokeh.models import CheckboxButtonGroup, CustomJS, CustomJSFilter, Div
 from bokeh.models.filters import Filter
 
@@ -145,15 +147,11 @@ def get_control_panel(
     ethnicity_checkbox, ethnicity_filter = _get_ethnicity_checkbox_and_filter(
         data_provider
     )
-
-    checkbox_column = column(
-        Div(text="Sex"),
-        sex_checkbox,
-        Div(text="Diagnosis"),
-        diagnosis_checkbox,
-        Div(text="Ethnic or Racial Group"),
-        ethnicity_checkbox,
-        name="control_panel",
+    
+    
+    checkbox_column = row(
+        column(Div(text="Sex"),sex_checkbox),column(Div(text="Diagnosis"),diagnosis_checkbox),column( Div(text="Ethnic or Racial Group"),ethnicity_checkbox)
+        ,name="control_panel"
     )
 
     filters = [sex_filter, diagnosis_filter, ethnicity_filter]
