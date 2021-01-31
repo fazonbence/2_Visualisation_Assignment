@@ -24,7 +24,7 @@ def get_q2bar(data_provider: HeartFailureProvider, extra_filters) -> Figure:
     main_plot1 = create_bar_plot(
         data_provider,
         "Ethnic groups vs Chronic/Non-Chronic Heart Failure",
-        "main",
+        "q2_plot",
         extra_filters=extra_filters,
     )
 
@@ -48,7 +48,7 @@ def create_bar_plot(
     ]
 
     mycols = colorblind["Colorblind"][4]
-    view_AA = CDSView(
+    view_AA_sick = CDSView(
         source=data_provider.data_ds,
         filters=[
             cf.AA,
@@ -58,7 +58,7 @@ def create_bar_plot(
         + extra_filters,
     )
 
-    view_AA = CDSView(
+    view_AA_notsick = CDSView(
         source=data_provider.data_ds,
         filters=[
             cf.AA,  
@@ -141,18 +141,19 @@ def create_bar_plot(
     p2.xaxis.axis_label = "Number of Patients with Chronic and Non-Chronic Disease type"
     p2.yaxis.axis_label = "Ethnic group"
 
+    p2.hbar(y='Ethnic or Racial Group', height=100, source=data_provider.data_ds,view=view_AA_sick,
+             legend_label="Chronic Heart Failure")
 
-    p2.hbar_stack(y='Ethnic or Racial Group', height=0.9, color=GnBu3, source=ColumnDataSource(cf.diagnosis_sick),
-             legend_label=["Chronic Heart Failure"])
-
-    p2.hbar_stack(y='Ethnic or Racial Group', height=0.9, color=OrRd3, source=ColumnDataSource(cf.diagnosis_notsick),
-             legend_label=["Not Chronic Heart Failure"])
+    #p2.hbar( y='Ethnic or Racial Group', height=0.9, source=data_provider.data_ds,view=view_AA_notsick,
+     #        legend_label="Not Chronic Heart Failure")
 
     p2.y_range.range_padding = 0.1
     p2.ygrid.grid_line_color = None
     p2.legend.location = "top_left"
     p2.axis.minor_tick_line_color = None
     p2.outline_line_color = None
+
+    return p2
 
 if __name__ == "__main__":
     # execute only if run as a script
