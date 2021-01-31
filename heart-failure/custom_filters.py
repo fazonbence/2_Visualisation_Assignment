@@ -9,6 +9,12 @@ test_set = GroupFilter(column_name="Dataset Name", group="test")
 females = GroupFilter(column_name="Sex", group="female")
 males = GroupFilter(column_name="Sex", group="male")
 
+# Selects African American/Hispanic/Caucasian/Unknown Racial group ("Race not stated" has been excluded)
+AA = GroupFilter(column_name="Ethnic or Racial Group", group="African American")
+Hisp = GroupFilter(column_name="Ethnic or Racial Group", group="Hispanic")
+Caucasians = GroupFilter(column_name="Ethnic or Racial Group", group="Caucasian")
+Unknown = GroupFilter(column_name="Ethnic or Racial Group", group="Unknown Racial Group")
+
 # Selects 1 row/patient
 # Default param should be: "data_provider.medical_data.size"
 unique_id_bool = lambda length: BooleanFilter(
@@ -27,6 +33,8 @@ inverse_unique_id_bool = lambda length: BooleanFilter(
 diagnosis_type = lambda type_: GroupFilter(column_name="Diagnosis", group=type_)
 
 diagnosis_sick = GroupFilter(column_name="Diagnosis", group="chronic heart failure")
+
+diagnosis_notsick = GroupFilter(column_name="Diagnosis", group="not chronic heart failure")
 
 
 # Selects the correct Disease Subtype
