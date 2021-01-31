@@ -30,7 +30,7 @@ def get_q2bar(data_provider: HeartFailureProvider, extra_filters) -> Figure:
 
     return main_plot
 
-    def create_bar_plot(
+def create_bar_plot(
     data_provider: HeartFailureProvider,
     title: str,
     name: str,
@@ -78,7 +78,7 @@ def get_q2bar(data_provider: HeartFailureProvider, extra_filters) -> Figure:
         + extra_filters,
     )
 
-     view_Hisp = CDSView(
+    view_Hisp = CDSView(
         source=data_provider.data_ds,
         filters=[
             cf.Hisp,
@@ -88,7 +88,7 @@ def get_q2bar(data_provider: HeartFailureProvider, extra_filters) -> Figure:
         + extra_filters,
     )
 
-     view_Caucasians = CDSView(
+    view_Caucasians = CDSView(
         source=data_provider.data_ds,
         filters=[
             cf.Caucasians,
@@ -98,7 +98,7 @@ def get_q2bar(data_provider: HeartFailureProvider, extra_filters) -> Figure:
         + extra_filters,
     )
 
-     view_Caucasians = CDSView(
+    view_Caucasians = CDSView(
         source=data_provider.data_ds,
         filters=[
             cf.Caucasians,
@@ -108,7 +108,7 @@ def get_q2bar(data_provider: HeartFailureProvider, extra_filters) -> Figure:
         + extra_filters,
     )
 
-     view_Unknown = CDSView(
+    view_Unknown = CDSView(
         source=data_provider.data_ds,
         filters=[
             cf.Unknown,
