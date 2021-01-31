@@ -21,14 +21,14 @@ from data import CDSView, HeartFailureProvider
 
 def get_q2bar(data_provider: HeartFailureProvider, extra_filters) -> Figure:
     
-    main_plot = create_bar_plot(
+    main_plot1 = create_bar_plot(
         data_provider,
         "Ethnic groups vs Chronic/Non-Chronic Heart Failure",
         "main",
         extra_filters=extra_filters,
     )
 
-    return main_plot
+    return main_plot1
 
 def create_bar_plot(
     data_provider: HeartFailureProvider,
@@ -142,10 +142,10 @@ def create_bar_plot(
     p2.yaxis.axis_label = "Ethnic group"
 
 
-    p2.hbar_stack(y='Ethnic or Racial Group', height=0.9, color=GnBu3, source=ColumnDataSource(diagnosis_sick),
+    p2.hbar_stack(y='Ethnic or Racial Group', height=0.9, color=GnBu3, source=ColumnDataSource(cf.diagnosis_sick),
              legend_label=["Chronic Heart Failure"])
 
-    p2.hbar_stack(y='Ethnic or Racial Group', height=0.9, color=OrRd3, source=ColumnDataSource(diagnosis_notsick),
+    p2.hbar_stack(y='Ethnic or Racial Group', height=0.9, color=OrRd3, source=ColumnDataSource(cf.diagnosis_notsick),
              legend_label=["Not Chronic Heart Failure"])
 
     p2.y_range.range_padding = 0.1

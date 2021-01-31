@@ -2,6 +2,7 @@ from bokeh.models import BooleanFilter, GroupFilter
 
 # Selects the training data
 training_set = GroupFilter(column_name="Dataset Name", group="training")
+
 # Selects the test data
 test_set = GroupFilter(column_name="Dataset Name", group="test")
 
@@ -35,6 +36,7 @@ diagnosis_type = lambda type_: GroupFilter(column_name="Diagnosis", group=type_)
 diagnosis_sick = GroupFilter(column_name="Diagnosis", group="chronic heart failure")
 
 diagnosis_notsick = GroupFilter(column_name="Diagnosis", group="not chronic heart failure")
+
 
 
 # Selects the correct Disease Subtype
