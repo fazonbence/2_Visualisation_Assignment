@@ -14,6 +14,7 @@ from bokeh.models.filters import Filter
 from bokeh.layouts import column
 from bokeh.palettes import colorblind
 from bokeh.plotting import Figure, figure, output_file, show
+from bokeh.models import HoverTool
 
 import custom_filters as cf
 from data import CDSView, HeartFailureProvider
@@ -59,9 +60,10 @@ def create_dot_plot(
         extra_filters = []
 
     TOOLTIPS = [
-        ("index", "$index"),
-        ("(x,y)", "($x, $y)"),
-        ("filename", "@filename"),
+        ("Patient Id", "@{Patient Id}"),
+        ("Age", "@Age"),
+        ("Disease Subtype", "@{Disease Subtype}"),
+        ("Filename", "@filename"),
     ]
     mycols = colorblind["Colorblind"][4]
     view_male = CDSView(
@@ -100,12 +102,12 @@ def create_dot_plot(
         ]
         + extra_filters,
     )
-
+    hover = HoverTool(names=["circle_female", "circle_male"])
     p1 = figure(
         title=title,
         y_range=data_provider.medical_data["Ethnic or Racial Group"].unique(),
         tooltips=TOOLTIPS,
-        tools="save",
+        tools=["save", hover],
         toolbar_location="left",
         plot_height=height,
         plot_width=width,
@@ -126,6 +128,7 @@ def create_dot_plot(
         selection_line_color="black",
         selection_line_alpha=1,
         selection_line_width=2,
+        name="circle_female"
     )
 
     p1.circle(
@@ -140,6 +143,7 @@ def create_dot_plot(
         selection_line_color="black",
         selection_line_alpha=1,
         selection_line_width=2,
+        name="circle_male"
     )
 
     p1.circle(
