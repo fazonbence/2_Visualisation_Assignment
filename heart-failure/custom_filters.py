@@ -9,6 +9,11 @@ test_set = GroupFilter(column_name="Dataset Name", group="test")
 # Selects females/males
 females = GroupFilter(column_name="Sex", group="female")
 males = GroupFilter(column_name="Sex", group="male")
+gender = GroupFilter(column_name="Sex")
+not_null_gender = lambda data:   BooleanFilter(
+    [True if x["Sex"] =="male" or x["Sex"]=="female"  else False for i,x in data.iterrows()]
+)
+
 
 # Selects African American/Hispanic/Caucasian/Unknown Racial group ("Race not stated" has been excluded)
 AA = GroupFilter(column_name="Ethnic or Racial Group", group="African American")

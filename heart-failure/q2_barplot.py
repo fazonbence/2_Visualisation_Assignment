@@ -15,6 +15,8 @@ from bokeh.palettes import colorblind
 from bokeh.plotting import Figure, figure, output_file, show
 from bokeh.models import ColumnDataSource
 from bokeh.palettes import GnBu3, OrRd3
+import pandas as pd
+from bokeh.models import BooleanFilter, GroupFilter
 
 import custom_filters as cf
 from data import CDSView, HeartFailureProvider
@@ -47,86 +49,20 @@ def create_bar_plot(
         ("filename", "@filename"),
     ]
 
-    mycols = colorblind["Colorblind"][4]
-    view_AA_sick = CDSView(
-        source=data_provider.data_ds,
-        filters=[
-            cf.AA,
-            cf.unique_id_bool(data_provider.medical_data.size),
-            cf.diagnosis_sick,
-        ]
-        + extra_filters,
-    )
+    df = pd.read_csv('medical_data_embedding.csv')
+    #print(df)
 
-    view_AA_notsick = CDSView(
-        source=data_provider.data_ds,
-        filters=[
-            cf.AA,  
-            cf.unique_id_bool(data_provider.medical_data.size),
-            cf.diagnosis_notsick,
-        ]
-        + extra_filters,
-    )
+    #list_Sex = df.Sex.unique()
+    #print(list_Sex)
 
-    view_Hisp = CDSView(
-        source=data_provider.data_ds,
-        filters=[
-            cf.Hisp,
-            cf.unique_id_bool(data_provider.medical_data.size),
-            cf.diagnosis_sick,
-        ]
-        + extra_filters,
-    )
 
-    view_Hisp = CDSView(
-        source=data_provider.data_ds,
-        filters=[
-            cf.Hisp,
-            cf.unique_id_bool(data_provider.medical_data.size),
-            cf.diagnosis_notsick,
-        ]
-        + extra_filters,
-    )
-
-    view_Caucasians = CDSView(
-        source=data_provider.data_ds,
-        filters=[
-            cf.Caucasians,
-            cf.unique_id_bool(data_provider.medical_data.size),
-            cf.diagnosis_sick,
-        ]
-        + extra_filters,
-    )
-
-    view_Caucasians = CDSView(
-        source=data_provider.data_ds,
-        filters=[
-            cf.Caucasians,
-            cf.unique_id_bool(data_provider.medical_data.size),
-            cf.diagnosis_notsick,
-        ]
-        + extra_filters,
-    )
-
-    view_Unknown = CDSView(
-        source=data_provider.data_ds,
-        filters=[
-            cf.Unknown,
-            cf.unique_id_bool(data_provider.medical_data.size),
-            cf.diagnosis_sick,
-        ]
-        + extra_filters,
-    )
-
-    view_Unknown = CDSView(
-        source=data_provider.data_ds,
-        filters=[
-            cf.Unknown,
-            cf.unique_id_bool(data_provider.medical_data.size),
-            cf.diagnosis_notsick,
-        ]
-        + extra_filters,
-    )
+    #c_male = df.loc[df['list_Sex'].isin('male')]
+    #print(c_male)
+    
+    AA_chronic_male = df[(df['Diagnosis']=='chronic heart failure') & (df['Ethnic or Racial Group']=='African American') & (df['Sex']=='male')].nunique()
+    # print(AA_chronic_male)
+    #AA_chronic_male = len(df.index)
+    #print(AA_chronic_male)
 
     p2 = figure(
             title=title,
@@ -141,11 +77,17 @@ def create_bar_plot(
     p2.xaxis.axis_label = "Number of Patients with Chronic and Non-Chronic Disease type"
     p2.yaxis.axis_label = "Ethnic group"
 
-    p2.hbar(y='Ethnic or Racial Group', height=100, source=data_provider.data_ds,view=view_AA_sick,
-             legend_label="Chronic Heart Failure")
+    names = data_provider.medical_data.Sex.unique()
+    #print(names)
 
-    #p2.hbar( y='Ethnic or Racial Group', height=0.9, source=data_provider.data_ds,view=view_AA_notsick,
-     #        legend_label="Not Chronic Heart Failure")
+   
+    gender = ['male','female']
+
+    p2.hbar_stack(gender,y='Ethnic or Racial Group',height=0.9,color=['red','green'],source=data_provider.data_ds,
+            legend_label="Chronic Heart Failure")
+
+    p2.hbar_stack(gender,y='Ethnic or Racial Group',height=0.9,color=['blue','black'],source=data_provider.data_ds,
+            legend_label="Not Chronic Heart Failure")
 
     p2.y_range.range_padding = 0.1
     p2.ygrid.grid_line_color = None
