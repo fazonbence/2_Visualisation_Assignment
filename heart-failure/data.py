@@ -2,6 +2,7 @@ import os
 
 import pandas as pd
 from bokeh.models import BooleanFilter, CDSView, ColumnDataSource
+import custom_filters as cf
 
 
 class HeartFailureProvider:
@@ -28,3 +29,5 @@ class HeartFailureProvider:
         self.medical_data["img_info"] = img_info
 
         self.data_ds = ColumnDataSource(self.medical_data) 
+
+   

@@ -73,6 +73,7 @@ def create_dot_plot(
         ]
         + extra_filters,
     )
+    
     view_female = CDSView(
         source=data_provider.data_ds,
         filters=[
