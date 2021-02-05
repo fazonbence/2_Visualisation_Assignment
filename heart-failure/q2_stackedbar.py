@@ -24,7 +24,7 @@ def get_q2bar(data_provider: HeartFailureProvider, extra_filters) -> Figure:
 
     p = figure(
         y_range=list_eth,
-        plot_height=350,
+        plot_height=250,
         title="Ethnic groups vs Chronic/Non-Chronic Heart Failure",
         toolbar_location=None,
         name="q2_plot",
@@ -33,7 +33,7 @@ def get_q2bar(data_provider: HeartFailureProvider, extra_filters) -> Figure:
     p.hbar_stack(
         gender,
         y="Ethnic or Racial Group",
-        height=0.9,
+        height=0.6,
         color=[mycols[0], mycols[4]],
         source=data_provider.counts_chronic_ds,
         legend_label=["%s - chronic heart failure" % x for x in gender],
@@ -42,7 +42,7 @@ def get_q2bar(data_provider: HeartFailureProvider, extra_filters) -> Figure:
     p.hbar_stack(
         gender,
         y="Ethnic or Racial Group",
-        height=0.9,
+        height=0.6,
         color=[mycols[1], mycols[2]],
         source=data_provider.counts_not_chronic_ds,
         legend_label=["%s - not chronic heart failure" % x for x in gender],
