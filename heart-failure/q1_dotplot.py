@@ -16,7 +16,7 @@ from bokeh.palettes import colorblind
 from bokeh.plotting import Figure, figure, output_file, show
 
 import custom_filters as cf
-from data import CDSView, HeartFailureProvider
+from data import HeartFailureProvider
 
 
 def get_q1dot(data_provider: HeartFailureProvider, extra_filters) -> Figure:
@@ -73,7 +73,7 @@ def create_dot_plot(
         ]
         + extra_filters,
     )
-    
+
     view_female = CDSView(
         source=data_provider.data_ds,
         filters=[
