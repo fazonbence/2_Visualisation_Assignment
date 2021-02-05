@@ -26,11 +26,16 @@ class HeartFailureProvider:
             img_fmt.format(imgs_folder, x) for x in self.filenames
         ]
         self.medical_data["img_info"] = img_info
-        self.counts_chronic = pd.DataFrame(
-            self.medical_data[self.medical_data["Diagnosis"] == "chronic heart failure"]
-            .groupby(["Ethnic or Racial Group", "Sex"])
-            .count()
-        )["filename"].unstack()
+        self.counts_chronic = (
+            pd.DataFrame(
+                self.medical_data[
+                    self.medical_data["Diagnosis"] == "chronic heart failure"
+                ]
+                .groupby(["Ethnic or Racial Group", "Sex"])
+                .count()
+            )["filename"].unstack()
+            / 11
+        )
         self.counts_not_chronic = (
             pd.DataFrame(
                 self.medical_data[
@@ -40,8 +45,10 @@ class HeartFailureProvider:
                 .count()
             )["filename"].unstack()
             * -1
+            / 11
         )
 
         self.data_ds = ColumnDataSource(self.medical_data)
         self.counts_chronic_ds = ColumnDataSource(self.counts_chronic)
         self.counts_not_chronic_ds = ColumnDataSource(self.counts_not_chronic)
+        self.data_ds.selected.indices = []

@@ -1,5 +1,7 @@
+from functools import partial
 from typing import List, Tuple
 
+import pandas as pd
 from bokeh.layouts import column
 from bokeh.layouts import row
 from bokeh.layouts import layout
@@ -7,6 +9,34 @@ from bokeh.models import CheckboxButtonGroup, CustomJS, CustomJSFilter, Div
 from bokeh.models.filters import Filter
 
 from data import HeartFailureProvider
+
+
+def _ds_callback(data_provider, attr, old, new):
+
+    if new == []:
+        medical_data = data_provider.medical_data
+    else:
+        medical_data = data_provider.medical_data.iloc[new]
+
+    counts_chronic = (
+        pd.DataFrame(
+            medical_data[medical_data["Diagnosis"] == "chronic heart failure"]
+            .groupby(["Ethnic or Racial Group", "Sex"])
+            .count()
+        )["filename"].unstack()
+        / 11
+    )
+    counts_not_chronic = (
+        pd.DataFrame(
+            medical_data[medical_data["Diagnosis"] == "not chronic heart failure"]
+            .groupby(["Ethnic or Racial Group", "Sex"])
+            .count()
+        )["filename"].unstack()
+        / -11
+    )
+
+    data_provider.counts_chronic_ds.data = counts_chronic
+    data_provider.counts_not_chronic_ds.data = counts_not_chronic
 
 
 def _get_sex_checkbox_and_filter(
@@ -17,7 +47,7 @@ def _get_sex_checkbox_and_filter(
     )
 
     sex_filter = CustomJSFilter(
-        args=dict(checkbox=sex_checkbox),
+        args=dict(checkbox=sex_checkbox, dsource=data_provider.data_ds),
         code="""
             const indices = []
             var dict = {
@@ -27,9 +57,10 @@ def _get_sex_checkbox_and_filter(
             for (var i = 0; i < source.get_length(); i++) {
                 var currentSex = source.data['Sex'][i]
                 if (checkbox.active.includes(dict[currentSex])) {
-                    indices.push(i)
+                    indices.push(i)        
                 }
             }
+            dsource.selected.indices = indices
             return indices
         """,
     )
@@ -57,7 +88,7 @@ def _get_diagnosis_checkbox_and_filter(
     )
 
     diagnosis_filter = CustomJSFilter(
-        args=dict(checkbox=diagnosis_checkbox),
+        args=dict(checkbox=diagnosis_checkbox, dsource=data_provider.data_ds),
         code="""
             const indices = []
             var dict = {
@@ -70,6 +101,7 @@ def _get_diagnosis_checkbox_and_filter(
                     indices.push(i)
                 }
             }
+            dsource.selected.indices = indices
             return indices
         """,
     )
@@ -103,7 +135,7 @@ def _get_ethnicity_checkbox_and_filter(
     )
 
     ethnicity_filter = CustomJSFilter(
-        args=dict(checkbox=ethnicity_checkbox),
+        args=dict(checkbox=ethnicity_checkbox, dsource=data_provider.data_ds),
         code="""
             const indices = []
             var dict = {
@@ -119,6 +151,7 @@ def _get_ethnicity_checkbox_and_filter(
                     indices.push(i)
                 }
             }
+            dsource.selected.indices = indices
             return indices
         """,
     )
@@ -155,5 +188,8 @@ def get_control_panel(
     )
 
     filters = [sex_filter, diagnosis_filter, ethnicity_filter]
+    data_provider.data_ds.selected.on_change(
+        "indices", partial(_ds_callback, data_provider)
+    )
 
     return checkbox_column, filters

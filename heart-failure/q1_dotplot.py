@@ -7,6 +7,7 @@ from bokeh.models import (
     LassoSelectTool,
     ResetTool,
     TapTool,
+    Title,
     WheelZoomTool,
     ZoomInTool,
 )
@@ -29,7 +30,7 @@ def get_q1dot(data_provider: HeartFailureProvider, extra_filters) -> Figure:
     )
     plot1 = create_dot_plot(
         data_provider,
-        "Ethnic groups and time of infection\n with cardiomyopathy",
+        "Ethnic groups and time of infection\nwith cardiomyopathy",
         "plot1",
         250,
         500,
@@ -37,7 +38,7 @@ def get_q1dot(data_provider: HeartFailureProvider, extra_filters) -> Figure:
     )
     plot2 = create_dot_plot(
         data_provider,
-        "Ethnic groups and time of infection\n with ischemic cardiomyopathy",
+        "Ethnic groups and time of infection\nwith ischemic cardiomyopathy",
         "plot2",
         250,
         500,
@@ -103,7 +104,6 @@ def create_dot_plot(
     )
 
     p1 = figure(
-        title=title,
         y_range=data_provider.medical_data["Ethnic or Racial Group"].unique(),
         tooltips=TOOLTIPS,
         tools="save",
@@ -112,6 +112,13 @@ def create_dot_plot(
         plot_width=width,
         name=name,
     )
+    if len(title.split("\n")) > 1:
+        p1.add_layout(
+            Title(text=title.split("\n")[1], text_font_style="italic"), "above"
+        )
+
+    p1.add_layout(Title(text=title.split("\n")[0],), "above")
+
     p1.xaxis.axis_label = "Age"
     p1.yaxis.axis_label = "Ethnic group"
 
@@ -126,7 +133,7 @@ def create_dot_plot(
         color=mycols[1],
         selection_line_color="black",
         selection_line_alpha=1,
-        selection_line_width=2,
+        selection_line_width=0.7,
     )
 
     p1.circle(
@@ -140,7 +147,7 @@ def create_dot_plot(
         color=mycols[0],
         selection_line_color="black",
         selection_line_alpha=1,
-        selection_line_width=2,
+        selection_line_width=0.7,
     )
 
     p1.circle(
@@ -154,7 +161,7 @@ def create_dot_plot(
         color="rgba(0, 0, 0, 0)",
         selection_line_color="black",
         selection_line_alpha=1,
-        selection_line_width=2,
+        selection_line_width=0.7,
     )
     p1.circle(
         x="Age",
@@ -167,7 +174,7 @@ def create_dot_plot(
         color="rgba(0, 0, 0, 0)",
         selection_line_color="black",
         selection_line_alpha=1,
-        selection_line_width=2,
+        selection_line_width=0.7,
     )
 
     p1.add_tools(LassoSelectTool())

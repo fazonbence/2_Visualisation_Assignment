@@ -82,7 +82,7 @@ def get_umap(
             legend_label=str(label) + " train",
             selection_line_color="black",
             selection_line_alpha=1,
-            selection_line_width=2,
+            selection_line_width=0.7,
         )
 
         view_test = CDSView(
@@ -101,7 +101,7 @@ def get_umap(
             legend_label=str(label) + " test",
             selection_line_color="black",
             selection_line_alpha=1,
-            selection_line_width=2,
+            selection_line_width=0.7,
         )
 
     umap_scatter.add_tools(LassoSelectTool())
