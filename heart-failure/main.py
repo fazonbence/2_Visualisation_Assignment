@@ -6,8 +6,6 @@ from control_panel import get_control_panel
 from data import HeartFailureProvider
 from q1_dotplot import get_q1dot
 from q2_stackedbar import get_q2bar
-
-# from q2_barplot import get_q2bar
 from umap_scatter import get_umap
 
 data_provider = HeartFailureProvider(
