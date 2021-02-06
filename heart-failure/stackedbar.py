@@ -5,7 +5,7 @@ from bokeh.plotting import Figure, figure
 from data import HeartFailureProvider
 
 
-def get_q2bar(data_provider: HeartFailureProvider) -> Figure:
+def get_bar(data_provider: HeartFailureProvider) -> Figure:
 
     list_eth = data_provider.medical_data["Ethnic or Racial Group"].unique()
 
@@ -18,7 +18,7 @@ def get_q2bar(data_provider: HeartFailureProvider) -> Figure:
         plot_height=250,
         title="Ethnic groups vs Chronic/Non-Chronic Heart Failure",
         toolbar_location="left",
-        name="q2_plot",
+        name="stacked",
     )
 
     p.hbar_stack(

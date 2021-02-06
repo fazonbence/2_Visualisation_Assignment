@@ -6,7 +6,7 @@ from bokeh.transform import dodge
 from data import HeartFailureProvider
 
 
-def get_q3_clustered(data_provider: HeartFailureProvider) -> Figure:
+def get_clustered(data_provider: HeartFailureProvider) -> Figure:
     list_eth = data_provider.medical_data["Ethnic or Racial Group"].unique()
 
     mycols = colorblind["Colorblind"][3]
@@ -15,7 +15,7 @@ def get_q3_clustered(data_provider: HeartFailureProvider) -> Figure:
         x_range=list_eth,
         title="Ethnic Groups and Disease Subtypes",
         toolbar_location="left",
-        name="q3_clustered",
+        name="clustered",
     )
 
     p.vbar(

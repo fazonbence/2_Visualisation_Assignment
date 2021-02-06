@@ -19,15 +19,15 @@ import custom_filters as cf
 from data import HeartFailureProvider
 
 
-def get_q1dot(data_provider: HeartFailureProvider,) -> Figure:
+def get_dot(data_provider: HeartFailureProvider,) -> Figure:
 
     main_plot = create_dot_plot(
-        data_provider, "Ethnic groups and time of infection", "main",
+        data_provider, "Ethnic groups and time of infection", "dot1",
     )
     plot1 = create_dot_plot(
         data_provider,
         "Ethnic groups and time of infection\nwith cardiomyopathy",
-        "plot1",
+        "dot2",
         250,
         500,
         [cf.disease_subtype_cardiomyopathy],
@@ -35,7 +35,7 @@ def get_q1dot(data_provider: HeartFailureProvider,) -> Figure:
     plot2 = create_dot_plot(
         data_provider,
         "Ethnic groups and time of infection\nwith ischemic cardiomyopathy",
-        "plot2",
+        "dot3",
         250,
         500,
         [cf.disease_subtype_ischemiccardiomyopathy],
