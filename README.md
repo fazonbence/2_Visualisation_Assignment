@@ -1,4 +1,9 @@
-# 2IMV20 Visualization - Information Visualization and Interaction Assignment 
+# 2IMV20 Visualization - Information Visualization and Interaction Assignment
+
+## Team members
+- Alessia Marcolini [@alessiamarcolini](https://github.com/alessiamarcolini)
+- Bence Fazekas [@fazonbence](https://github.com/fazonbence)
+- Harish Sekar [@HaRRy-19](https://github.com/HaRRy-19)
 
 ## Setup
 
