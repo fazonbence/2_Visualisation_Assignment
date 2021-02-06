@@ -1,5 +1,5 @@
 # Static files folder
-heart-failure/static/tiles_flat
+heart-failure/static/tiles_flat/*.png
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
