@@ -157,6 +157,8 @@ def get_control_panel(
     checkbox_column = row(
         column(Div(text="Sex"), sex_checkbox),
         column(Div(text="Diagnosis"), diagnosis_checkbox),
+        column(Div()),
+        column(Div()),
         column(Div(text="Ethnic or Racial Group"), ethnicity_checkbox),
         name="control_panel",
     )
