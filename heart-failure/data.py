@@ -29,8 +29,10 @@ class HeartFailureProvider:
         img_fmt = '<img src="{}/{}" ' 'alt="div_image" width="300" height="300">'
 
         img_info = [
-            f"Patient ID: {p_id}, Tile ID: {t_id}"
-            for p_id, t_id in zip(self.patient_ids, self.tile_ids)
+            f"<b>Patient ID</b>: {row['Patient Id']}, <b>Tile ID</b>: {row['filename'].split('_')[3]}"
+            f"</br><b>Diagnosis</b>: {row['Diagnosis']}</br><b>Disease Subtype</b>: {row['Disease Subtype']}"
+            f"</br><b>Sex</b>: {row['Sex']}</br><b>Ethnic or Racial Group</b>: {row['Ethnic or Racial Group']}"
+            for _, row in self.medical_data.iterrows()
         ]
         self.medical_data["img_html"] = [
             img_fmt.format(imgs_folder, x) for x in self.filenames
