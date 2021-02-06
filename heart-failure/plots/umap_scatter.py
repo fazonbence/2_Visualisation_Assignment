@@ -163,9 +163,15 @@ def get_umap(data_provider: HeartFailureProvider) -> Tuple[Figure, Div, Div]:
             args=dict(datasource=data_provider.data_ds, img=img, img_info=img_info),
             code="""
                 var inds = cb_obj.indices;
-                var d1 = datasource.data;
-                img.text = d1['img_html'][inds[0]];
-                img_info.text = d1['img_info'][inds[0]];
+                if (inds.length > 0){
+                    var d1 = datasource.data;
+                    img.text = d1['img_html'][inds[0]];
+                    img_info.text = d1['img_info'][inds[0]];
+                }
+                else {
+                    img.text = '';
+                    img_info.text = '';
+                }
                 img.change.emit();
                 img_info.change.emit();
                 """,
