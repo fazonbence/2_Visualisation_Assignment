@@ -7,42 +7,39 @@ from bokeh.models import (
     LassoSelectTool,
     ResetTool,
     TapTool,
+    Title,
     WheelZoomTool,
     ZoomInTool,
 )
 from bokeh.models.filters import Filter
-from bokeh.layouts import column
 from bokeh.palettes import colorblind
 from bokeh.plotting import Figure, figure, output_file, show
 from bokeh.models import HoverTool
 
 import custom_filters as cf
-from data import CDSView, HeartFailureProvider
+from data import HeartFailureProvider
 
 
-def get_q1dot(data_provider: HeartFailureProvider, extra_filters) -> Figure:
+def get_q1dot(data_provider: HeartFailureProvider,) -> Figure:
 
     main_plot = create_dot_plot(
-        data_provider,
-        "Ethnic groups and time of infection",
-        "main",
-        extra_filters=extra_filters,
+        data_provider, "Ethnic groups and time of infection", "main",
     )
     plot1 = create_dot_plot(
         data_provider,
-        "Ethnic groups and time of infection\n with cardiomyopathy",
+        "Ethnic groups and time of infection\nwith cardiomyopathy",
         "plot1",
         250,
         500,
-        [cf.disease_subtype_cardiomyopathy] + extra_filters,
+        [cf.disease_subtype_cardiomyopathy],
     )
     plot2 = create_dot_plot(
         data_provider,
-        "Ethnic groups and time of infection\n with ischemic cardiomyopathy",
+        "Ethnic groups and time of infection\nwith ischemic cardiomyopathy",
         "plot2",
         250,
         500,
-        [cf.disease_subtype_ischemiccardiomyopathy] + extra_filters,
+        [cf.disease_subtype_ischemiccardiomyopathy],
     )
 
     return main_plot, plot1, plot2
@@ -75,6 +72,7 @@ def create_dot_plot(
         ]
         + extra_filters,
     )
+
     view_female = CDSView(
         source=data_provider.data_ds,
         filters=[
@@ -104,7 +102,6 @@ def create_dot_plot(
     )
     hover = HoverTool(names=["circle_female", "circle_male"])
     p1 = figure(
-        title=title,
         y_range=data_provider.medical_data["Ethnic or Racial Group"].unique(),
         tooltips=TOOLTIPS,
         tools=["save", hover],
@@ -113,6 +110,13 @@ def create_dot_plot(
         plot_width=width,
         name=name,
     )
+    if len(title.split("\n")) > 1:
+        p1.add_layout(
+            Title(text=title.split("\n")[1], text_font_style="italic"), "above"
+        )
+
+    p1.add_layout(Title(text=title.split("\n")[0],), "above")
+
     p1.xaxis.axis_label = "Age"
     p1.yaxis.axis_label = "Ethnic group"
 
@@ -127,8 +131,7 @@ def create_dot_plot(
         color=mycols[1],
         selection_line_color="black",
         selection_line_alpha=1,
-        selection_line_width=2,
-        name="circle_female"
+        selection_line_width=0.7,
     )
 
     p1.circle(
@@ -142,8 +145,7 @@ def create_dot_plot(
         color=mycols[0],
         selection_line_color="black",
         selection_line_alpha=1,
-        selection_line_width=2,
-        name="circle_male"
+        selection_line_width=0.7,
     )
 
     p1.circle(
@@ -157,7 +159,7 @@ def create_dot_plot(
         color="rgba(0, 0, 0, 0)",
         selection_line_color="black",
         selection_line_alpha=1,
-        selection_line_width=2,
+        selection_line_width=0.7,
     )
     p1.circle(
         x="Age",
@@ -170,7 +172,7 @@ def create_dot_plot(
         color="rgba(0, 0, 0, 0)",
         selection_line_color="black",
         selection_line_alpha=1,
-        selection_line_width=2,
+        selection_line_width=0.7,
     )
 
     p1.add_tools(LassoSelectTool())
