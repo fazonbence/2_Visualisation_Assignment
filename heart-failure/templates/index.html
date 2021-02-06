@@ -27,6 +27,12 @@
         background-color: #DDDDDD !important;
         background-image: none !important;
     }
+
+    .top-left {
+        position: absolute;
+        top: 8px;
+        left: 16px;
+    }
 </style>
 
 {% endblock %}
@@ -34,66 +40,68 @@
 {% block contents%}
 <div class="container-fluid">
     <div class="row">
-        <div class="col-5">
-            <h1>Chronic Heart Failure</h1>
+        <img src="heart-failure/static/background.png" style="width:100%;opacity:0.2;filter:alpha(opacity=20);"">
+        <div class=" top-left">
+        <h1>Chronic Heart Failure</h1>
+        </br>
 
+        <h6>
+            J. J. Nirschl, A. Janowczyk, E. G. Peyster, R. Frank, K. B. Margulies, M. D.Feldman, and A. Madabhushi.
+        </h6>
+        <h6>
+            A deep-learning classifier identifies patients with clinical heart failure using whole-slide images of
+            H&E tissue.
+        </h6>
+        <h6>
+            PloS one,13(4):e0192726, 2018
+        </h6>
 
-            <h6>
-                J. J. Nirschl, A. Janowczyk, E. G. Peyster, R. Frank, K. B. Margulies, M. D.Feldman, and A. Madabhushi.
-            </h6>
-            <h6>
-                A deep-learning classifier identifies patients with clinical heart failure using whole-slide images of
-                H&E tissue.
-            </h6>
-            <h6>
-                PloS one,13(4):e0192726, 2018
-            </h6>
-            </br></br>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col">
+        </br></br>
+        <p>Filtering options:</p>
+        {{ embed(roots.control_panel) }}
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-4">
+        {{ embed(roots.umap) }}
+    </div>
+
+    <div class="col-4">
+        {{ embed(roots.img_div) }}
+        {{ embed(roots.img_info_div) }}
+    </div>
+    <div class="col-4">
+        {{ embed(roots.q2_plot) }}
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-4 h-100">
+        {{ embed(roots.main) }}
+    </div>
+    <div class="col-4">
+        <div class="row h-50">
+            {{ embed(roots.plot1) }}
+        </div>
+        <div class="row h-50">
+            {{ embed(roots.plot2) }}
         </div>
 
     </div>
-    <div class="row">
-        <div class="col">
-            <p>Filtering options:</p>
-            {{ embed(roots.control_panel) }}
+    <div class="col-4">
+        <div class="row h-100">
+            {{ embed(roots.q3_clustered) }}
         </div>
+
     </div>
-    <div class="row">
-
-        <div class="col-4">
-            {{ embed(roots.umap) }}
-        </div>
-
-        <div class="col-4">
-            {{ embed(roots.img_div) }}
-            {{ embed(roots.img_info_div) }}
-        </div>
-        <div class="col-4">
-            {{ embed(roots.q2_plot) }}
-        </div>
-    </div>
-
-    <div class="row">
-
-        <div class="col-4 h-100">
-            {{ embed(roots.main) }}
-        </div>
-        <div class="col-4">
-            <div class="row h-50">
-                {{ embed(roots.plot1) }}
-            </div>
-            <div class="row h-50">
-                {{ embed(roots.plot2) }}
-            </div>
-
-        </div>
-        <div class="col-4">
-            <div class="row h-100">
-                {{ embed(roots.q3_clustered) }}
-            </div>
-
-        </div>
-    </div>
+</div>
 
 
 </div>
