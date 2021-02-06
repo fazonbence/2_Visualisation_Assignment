@@ -12,7 +12,6 @@ from bokeh.models import (
     ZoomInTool,
 )
 from bokeh.models.filters import Filter
-from bokeh.layouts import column
 from bokeh.palettes import colorblind
 from bokeh.plotting import Figure, figure, output_file, show
 
@@ -20,13 +19,10 @@ import custom_filters as cf
 from data import HeartFailureProvider
 
 
-def get_q1dot(data_provider: HeartFailureProvider, extra_filters) -> Figure:
+def get_q1dot(data_provider: HeartFailureProvider,) -> Figure:
 
     main_plot = create_dot_plot(
-        data_provider,
-        "Ethnic groups and time of infection",
-        "main",
-        extra_filters=extra_filters,
+        data_provider, "Ethnic groups and time of infection", "main",
     )
     plot1 = create_dot_plot(
         data_provider,
@@ -34,7 +30,7 @@ def get_q1dot(data_provider: HeartFailureProvider, extra_filters) -> Figure:
         "plot1",
         250,
         500,
-        [cf.disease_subtype_cardiomyopathy] + extra_filters,
+        [cf.disease_subtype_cardiomyopathy],
     )
     plot2 = create_dot_plot(
         data_provider,
@@ -42,7 +38,7 @@ def get_q1dot(data_provider: HeartFailureProvider, extra_filters) -> Figure:
         "plot2",
         250,
         500,
-        [cf.disease_subtype_ischemiccardiomyopathy] + extra_filters,
+        [cf.disease_subtype_ischemiccardiomyopathy],
     )
 
     return main_plot, plot1, plot2

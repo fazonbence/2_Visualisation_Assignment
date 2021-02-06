@@ -12,11 +12,11 @@ data_provider = HeartFailureProvider(
     "medical_data_embedding.csv", os.path.join("heart-failure", "static", "tiles_flat")
 )
 
-control_panel, filters = get_control_panel(data_provider)
+control_panel = get_control_panel(data_provider)
 
-umap_scatter, img, img_info = get_umap(data_provider, filters)
-main_plot, plot1, plot2 = get_q1dot(data_provider, filters)
-q2_plot = get_q2bar(data_provider, filters)
+umap_scatter, img, img_info = get_umap(data_provider)
+main_plot, plot1, plot2 = get_q1dot(data_provider)
+q2_plot = get_q2bar(data_provider)
 
 
 curdoc().add_root(umap_scatter)

@@ -5,16 +5,7 @@ from bokeh.plotting import Figure, figure
 from data import HeartFailureProvider
 
 
-def get_q2bar(data_provider: HeartFailureProvider, extra_filters) -> Figure:
-
-    if extra_filters is None:
-        extra_filters = []
-
-    TOOLTIPS = [
-        ("index", "$index"),
-        ("(x,y)", "($x, $y)"),
-        ("filename", "@filename"),
-    ]
+def get_q2bar(data_provider: HeartFailureProvider) -> Figure:
 
     list_eth = data_provider.medical_data["Ethnic or Racial Group"].unique()
 

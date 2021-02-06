@@ -36,9 +36,7 @@ def get_initial_img_info(data_provider: HeartFailureProvider) -> Div:
     )
 
 
-def get_umap(
-    data_provider: HeartFailureProvider, extra_filters
-) -> Tuple[Figure, Div, Div]:
+def get_umap(data_provider: HeartFailureProvider) -> Tuple[Figure, Div, Div]:
     TOOLTIPS = [
         ("index", "$index"),
         ("(x,y)", "($x, $y)"),
@@ -68,7 +66,7 @@ def get_umap(
 
         view_train = CDSView(
             source=data_provider.data_ds,
-            filters=[cf.training_set, cf.diagnosis_type(label),] + extra_filters,
+            filters=[cf.training_set, cf.diagnosis_type(label),],
         )
 
         umap_scatter.circle(
@@ -87,7 +85,7 @@ def get_umap(
 
         view_test = CDSView(
             source=data_provider.data_ds,
-            filters=[cf.test_set, cf.diagnosis_type(label),] + extra_filters,
+            filters=[cf.test_set, cf.diagnosis_type(label),],
         )
 
         umap_scatter.triangle(
