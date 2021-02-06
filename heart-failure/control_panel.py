@@ -32,9 +32,16 @@ def _ds_callback(data_provider, attr, old, new):
         )["filename"].unstack()
         / -11
     )
+    counts_subtypes = (
+        pd.DataFrame(
+            medical_data.groupby(["Ethnic or Racial Group", "Disease Subtype"]).count()
+        )["filename"].unstack()
+        / 11
+    )
 
     data_provider.counts_chronic_ds.data = counts_chronic
     data_provider.counts_not_chronic_ds.data = counts_not_chronic
+    data_provider.counts_subtypes_ds.data = counts_subtypes
 
 
 def _get_sex_checkbox(

@@ -48,7 +48,17 @@ class HeartFailureProvider:
             / 11
         )
 
+        self.counts_subtypes = (
+            pd.DataFrame(
+                self.medical_data.groupby(
+                    ["Ethnic or Racial Group", "Disease Subtype"]
+                ).count()
+            )["filename"].unstack()
+            / 11
+        )
+
         self.data_ds = ColumnDataSource(self.medical_data)
         self.counts_chronic_ds = ColumnDataSource(self.counts_chronic)
         self.counts_not_chronic_ds = ColumnDataSource(self.counts_not_chronic)
+        self.counts_subtypes_ds = ColumnDataSource(self.counts_subtypes)
         self.data_ds.selected.indices = []
