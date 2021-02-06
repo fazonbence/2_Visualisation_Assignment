@@ -20,17 +20,3 @@ attrs:
     axis_line_cap: 'round'
     axis_line_width: 1
     major_tick_line_width: 1
-
-  FactorRange:
-    range_padding: 0.1
-
-  Grid:
-    grid_line_alpha: 0.4
-
-  Slider:
-    sizing_mode: 'stretch_both'
-  
-  DataTable:
-    max_width: 550
-    width_policy: 'min'
-    height_policy: 'max'

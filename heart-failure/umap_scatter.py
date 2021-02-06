@@ -66,7 +66,7 @@ def get_umap(data_provider: HeartFailureProvider) -> Tuple[Figure, Div, Div]:
 
         view_train = CDSView(
             source=data_provider.data_ds,
-            filters=[cf.training_set, cf.diagnosis_type(label),],
+            filters=[cf.training_set, cf.diagnosis_type(label)],
         )
 
         umap_scatter.circle(
@@ -85,7 +85,7 @@ def get_umap(data_provider: HeartFailureProvider) -> Tuple[Figure, Div, Div]:
 
         view_test = CDSView(
             source=data_provider.data_ds,
-            filters=[cf.test_set, cf.diagnosis_type(label),],
+            filters=[cf.test_set, cf.diagnosis_type(label)],
         )
 
         umap_scatter.triangle(
@@ -109,9 +109,6 @@ def get_umap(data_provider: HeartFailureProvider) -> Tuple[Figure, Div, Div]:
     umap_scatter.add_tools(BoxZoomTool())
     umap_scatter.add_tools(TapTool())
 
-    umap_scatter.legend.label_text_font_size = "20pt"
-    umap_scatter.yaxis.major_label_text_font_size = "15pt"
-    umap_scatter.xaxis.major_label_text_font_size = "15pt"
     umap_scatter.legend.location = "top_left"
     umap_scatter.legend.click_policy = "hide"
 

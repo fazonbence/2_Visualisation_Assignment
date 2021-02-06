@@ -9,7 +9,7 @@ def get_q2bar(data_provider: HeartFailureProvider) -> Figure:
 
     list_eth = data_provider.medical_data["Ethnic or Racial Group"].unique()
 
-    mycols = colorblind["Colorblind"][8]
+    mycols = colorblind["Colorblind"][5]
 
     gender = ["male", "female"]
 
@@ -17,7 +17,7 @@ def get_q2bar(data_provider: HeartFailureProvider) -> Figure:
         y_range=list_eth,
         plot_height=250,
         title="Ethnic groups vs Chronic/Non-Chronic Heart Failure",
-        toolbar_location=None,
+        toolbar_location="left",
         name="q2_plot",
     )
 
@@ -44,6 +44,7 @@ def get_q2bar(data_provider: HeartFailureProvider) -> Figure:
     p.legend.location = "top_right"
     p.axis.minor_tick_line_color = None
     p.outline_line_color = None
+    p.legend.click_policy = "hide"
 
     return p
 

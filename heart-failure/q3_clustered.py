@@ -1,4 +1,5 @@
-from bokeh.models import ColumnDataSource
+from bokeh.models import ResetTool, ZoomInTool
+from bokeh.palettes import colorblind
 from bokeh.plotting import Figure, figure
 from bokeh.transform import dodge
 
@@ -6,13 +7,14 @@ from data import HeartFailureProvider
 
 
 def get_q3_clustered(data_provider: HeartFailureProvider) -> Figure:
-    df = data_provider.medical_data
-    list_eth = df["Ethnic or Racial Group"].unique()
+    list_eth = data_provider.medical_data["Ethnic or Racial Group"].unique()
+
+    mycols = colorblind["Colorblind"][3]
 
     p = figure(
         x_range=list_eth,
-        title="Disease Sub-type based on Ethnic Groups",
-        toolbar_location=None,
+        title="Ethnic Groups and Disease Subtypes",
+        toolbar_location="left",
         name="q3_clustered",
     )
 
@@ -21,7 +23,7 @@ def get_q3_clustered(data_provider: HeartFailureProvider) -> Figure:
         top="cardiomyopathy",
         width=0.2,
         source=data_provider.counts_subtypes_ds,
-        color="#c9d9d3",
+        color=mycols[0],
         legend_label="cardiomyopathy",
     )
     p.vbar(
@@ -29,7 +31,7 @@ def get_q3_clustered(data_provider: HeartFailureProvider) -> Figure:
         top="ischemic cardiomyopathy",
         width=0.2,
         source=data_provider.counts_subtypes_ds,
-        color="#718dbf",
+        color=mycols[1],
         legend_label="ischemic cardiomyopathy",
     )
 
@@ -40,5 +42,9 @@ def get_q3_clustered(data_provider: HeartFailureProvider) -> Figure:
     p.xgrid.grid_line_color = None
     p.legend.location = "top_left"
     p.legend.orientation = "horizontal"
+    p.legend.click_policy = "hide"
+
+    p.add_tools(ZoomInTool())
+    p.add_tools(ResetTool())
 
     return p

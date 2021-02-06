@@ -1,9 +1,9 @@
 from typing import List
 
-from bokeh.io import output_file, show
 from bokeh.models import (
     BoxZoomTool,
     CDSView,
+    HoverTool,
     LassoSelectTool,
     ResetTool,
     TapTool,
@@ -13,8 +13,7 @@ from bokeh.models import (
 )
 from bokeh.models.filters import Filter
 from bokeh.palettes import colorblind
-from bokeh.plotting import Figure, figure, output_file, show
-from bokeh.models import HoverTool
+from bokeh.plotting import Figure, figure
 
 import custom_filters as cf
 from data import HeartFailureProvider
@@ -115,8 +114,6 @@ def create_dot_plot(
             Title(text=title.split("\n")[1], text_font_style="italic"), "above"
         )
 
-    p1.add_layout(Title(text=title.split("\n")[0],), "above")
-
     p1.xaxis.axis_label = "Age"
     p1.yaxis.axis_label = "Ethnic group"
 
@@ -183,13 +180,8 @@ def create_dot_plot(
     p1.add_tools(TapTool())
 
     p1.legend.location = "top_left"
+    p1.legend.orientation = "horizontal"
     p1.legend.click_policy = "hide"
+
+    p1.add_layout(Title(text=title.split("\n")[0],), "above")
     return p1
-
-
-if __name__ == "__main__":
-    # execute only if run as a script
-    data_provider = HeartFailureProvider("medical_data_embedding.csv")
-    q1_dotplot = get_q1dot(data_provider)
-    output_file("lines.html")
-    show(q1_dotplot)
