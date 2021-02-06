@@ -7,6 +7,18 @@ from data import HeartFailureProvider
 
 
 def get_clustered(data_provider: HeartFailureProvider) -> Figure:
+    """Return clustered bar chart of disease subtypes over the ethnicities
+
+    Parameters
+    ----------
+    data_provider : HeartFailureProvider
+        Application data provider
+
+    Returns
+    -------
+    Figure
+        Clustered bar chart of disease subtypes over the ethnicities
+    """
     list_eth = data_provider.medical_data["Ethnic or Racial Group"].unique()
 
     mycols = colorblind["Colorblind"][3]

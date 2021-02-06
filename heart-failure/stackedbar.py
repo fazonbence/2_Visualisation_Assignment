@@ -1,4 +1,3 @@
-from bokeh.io import show
 from bokeh.palettes import colorblind
 from bokeh.plotting import Figure, figure
 
@@ -6,6 +5,18 @@ from data import HeartFailureProvider
 
 
 def get_bar(data_provider: HeartFailureProvider) -> Figure:
+    """Return stacked bar plot of ethnic groups and Chronic/Non-Chronic Heart Failure
+
+    Parameters
+    ----------
+    data_provider : HeartFailureProvider
+        Application data provider
+
+    Returns
+    -------
+    Figure
+        Stacked bar plot
+    """
 
     list_eth = data_provider.medical_data["Ethnic or Racial Group"].unique()
 
@@ -47,10 +58,3 @@ def get_bar(data_provider: HeartFailureProvider) -> Figure:
     p.legend.click_policy = "hide"
 
     return p
-
-
-if __name__ == "__main__":
-    # execute only if run as a script
-    data_provider = HeartFailureProvider("medical_data_embedding.csv")
-    q2_stackedbar = get_q2bar(data_provider, [])
-    show(q2_stackedbar)

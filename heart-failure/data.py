@@ -10,6 +10,16 @@ class HeartFailureProvider:
         medical_data_path: str,
         imgs_folder: str = os.path.join("heart-failure", "static", "tiles_flat"),
     ) -> None:
+        """Container of shared data sources.
+
+        Parameters
+        ----------
+        medical_data_path : str
+            Path of the data CSV file
+        imgs_folder : str, optional
+            Folder where the tiles are stored, by default 
+            "heart-failure/static/tiles_flat"
+        """
 
         self.medical_data = pd.read_csv(medical_data_path)
         self.filenames = self.medical_data["filename"].tolist()

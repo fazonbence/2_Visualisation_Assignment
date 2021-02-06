@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 
 from bokeh.models import (
     BoxZoomTool,
@@ -19,14 +19,32 @@ import custom_filters as cf
 from data import HeartFailureProvider
 
 
-def get_dot(data_provider: HeartFailureProvider,) -> Figure:
+def get_dot(data_provider: HeartFailureProvider,) -> Tuple[Figure, Figure, Figure]:
+    """Return three dot plots of ethnic groups and age of transplant.
+
+    Parameters
+    ----------
+    data_provider : HeartFailureProvider
+        Application data provider
+
+    Returns
+    -------
+    Figure
+        Dot plot of ethnic groups and age of transplant, considering all subtypes
+    Figure
+        Dot plot of ethnic groups and age of transplant, considering only patients with
+        cardiomyopathy
+    Figure
+        Dot plot of ethnic groups and age of transplant, considering only patients with
+        ischemic cardiomyopathy
+    """
 
     main_plot = create_dot_plot(
-        data_provider, "Ethnic groups and time of infection", "dot1",
+        data_provider, "Ethnic groups and age of transplant", "dot1",
     )
     plot1 = create_dot_plot(
         data_provider,
-        "Ethnic groups and time of infection\nwith cardiomyopathy",
+        "Ethnic groups and age of transplant\nwith cardiomyopathy",
         "dot2",
         250,
         500,
@@ -34,7 +52,7 @@ def get_dot(data_provider: HeartFailureProvider,) -> Figure:
     )
     plot2 = create_dot_plot(
         data_provider,
-        "Ethnic groups and time of infection\nwith ischemic cardiomyopathy",
+        "Ethnic groups and age of transplant\nwith ischemic cardiomyopathy",
         "dot3",
         250,
         500,
@@ -51,7 +69,29 @@ def create_dot_plot(
     height: int = 500,
     width: int = 600,
     extra_filters: List[Filter] = None,
-):
+) -> Figure:
+    """Return dot plot with given title, name, height, width and extra_filters applied.
+
+    Parameters
+    ----------
+    data_provider : HeartFailureProvider
+        Application data provider
+    title : str
+        Title of the plot
+    name : str
+        Name of the plot. Needed for HTML template
+    height : int, optional
+        Height of the plot, by default 500
+    width : int, optional
+        Width of the plot, by default 600
+    extra_filters : List[Filter], optional
+        Filters that may be applied to filter the data source, by default None.
+
+    Returns
+    -------
+    Figure
+        Dot plot
+    """
     if extra_filters is None:
         extra_filters = []
 

@@ -19,6 +19,18 @@ from data import HeartFailureProvider
 
 
 def get_initial_img(data_provider: HeartFailureProvider) -> Div:
+    """Return initial Div with the first tile of the first patient.
+
+    Parameters
+    ----------
+    data_provider : HeartFailureProvider
+        Application data provider
+
+    Returns
+    -------
+    Div
+        Div with image corresponding to the selected point on the scatter plot
+    """
     return Div(
         text=data_provider.data_ds.data["img_html"][0],
         width=300,
@@ -28,6 +40,18 @@ def get_initial_img(data_provider: HeartFailureProvider) -> Div:
 
 
 def get_initial_img_info(data_provider: HeartFailureProvider) -> Div:
+    """Return initial Div with the first patient's info.
+
+    Parameters
+    ----------
+    data_provider : HeartFailureProvider
+        Application data provider
+
+    Returns
+    -------
+    Div
+        Div with patient's info corresponding to the selected point on the scatter plot
+    """
     return Div(
         text=data_provider.data_ds.data["img_info"][0],
         width=300,
@@ -37,6 +61,23 @@ def get_initial_img_info(data_provider: HeartFailureProvider) -> Div:
 
 
 def get_umap(data_provider: HeartFailureProvider) -> Tuple[Figure, Div, Div]:
+    """Return scatter plot with UMAP projection, and two Div for image and patient info
+
+    Parameters
+    ----------
+    data_provider : HeartFailureProvider
+        Application data provider
+
+    Returns
+    -------
+    Figure
+        Scatter plot with UMAP projection
+    Div
+        Div with image corresponding to the selected point on the scatter plot
+    Div
+        Div with patient's info corresponding to the selected point on the scatter plot
+    """
+
     TOOLTIPS = [
         ("index", "$index"),
         ("(x,y)", "($x, $y)"),
