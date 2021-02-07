@@ -26,12 +26,12 @@ class HeartFailureProvider:
         self.patient_ids = self.medical_data["Patient Id"].tolist()
         self.tile_ids = [f.split("_")[3] for f in self.filenames]
 
-        img_fmt = '<img src="{}/{}" ' 'alt="div_image" width="300" height="300">'
+        img_fmt = '<img src="{}/{}" ' 'alt="div_image" width="400" height="400">'
 
         img_info = [
             f"<b>Patient ID</b>: {row['Patient Id']}, <b>Tile ID</b>: {row['filename'].split('_')[3]}"
-            f"</br><b>Diagnosis</b>: {row['Diagnosis']}</br><b>Disease Subtype</b>: {row['Disease Subtype']}"
-            f"</br><b>Sex</b>: {row['Sex']}</br><b>Ethnic or Racial Group</b>: {row['Ethnic or Racial Group']}"
+            f"</br></br><b>Diagnosis</b>: {row['Diagnosis']}</br></br><b>Disease Subtype</b>: {row['Disease Subtype']}"
+            f"</br></br><b>Sex</b>: {row['Sex']}</br></br><b>Ethnic or Racial Group</b>: {row['Ethnic or Racial Group']}"
             for _, row in self.medical_data.iterrows()
         ]
         self.medical_data["img_html"] = [

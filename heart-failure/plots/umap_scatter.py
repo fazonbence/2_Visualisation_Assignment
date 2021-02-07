@@ -33,8 +33,8 @@ def get_initial_img(data_provider: HeartFailureProvider) -> Div:
     """
     return Div(
         text=data_provider.data_ds.data["img_html"][0],
-        width=300,
-        height=300,
+        width=400,
+        height=400,
         name="img_div",
     )
 
