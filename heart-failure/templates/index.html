@@ -40,6 +40,28 @@
         margin: auto;
         width: 95%;
     }
+
+    img{
+        width:auto;
+        height:auto;
+        max-width:100%;
+        max-height:100%;
+      }
+      .img-wrap{
+        float:left;
+        width:20%;
+        margin-right:2%;
+      }
+      .desc{
+        float:right;
+        width:75%;
+      }
+      .desc p{
+        margin-top:0;
+      }
+      .clear{
+        clear:both;
+      }
 </style>
 
 {% endblock %}
@@ -47,22 +69,22 @@
 {% block contents%}
 <div class="container-fluid">
     <div class="row">
-        <img src="heart-failure/static/background.png" style="width:100%;opacity:0.2;filter:alpha(opacity=20);"">
+            <img src="heart-failure/static/background.png" style="width:100%;opacity:0.2;filter:alpha(opacity=20);"" >
+             
         <div class=" top-left">
 
-        <h1 class='small-middle-container'>Chronic Heart Failure</h1>
-        </br>
-
-        <h6 class='small-middle-container'>
-            J. J. Nirschl, A. Janowczyk, E. G. Peyster, R. Frank, K. B. Margulies, M. D.Feldman, and A. Madabhushi.
-        </h6>
-        <h6 class='small-middle-container'>
-            A deep-learning classifier identifies patients with clinical heart failure using whole-slide images of
-            H&E tissue.
-        </h6>
-        <h6 class='small-middle-container'>
-            PloS one,13(4):e0192726, 2018
-        </h6>
+            <h1 class='small-middle-container' style="font-size:1.5vw;">Chronic Heart Failure</h1>
+            <h6 class='small-middle-container' style="font-size:1vw;">
+                J. J. Nirschl, A. Janowczyk, E. G. Peyster, R. Frank, K. B. Margulies, M. D.Feldman, and A. Madabhushi.
+            </h6>
+            <h6 class='small-middle-container' style="font-size:0.5vw;">
+                A deep-learning classifier identifies patients with clinical heart failure using whole-slide images of
+                H&E tissue.
+            </h6>
+            <h6 class='small-middle-container'style="font-size:0.5vw;">
+                PloS one,13(4):e0192726, 2018
+            </h6>
+        </div>
     </div>
 
 
@@ -72,8 +94,8 @@
     <div class="small-middle-container">
         <div class="row">
             <div class="col">
-                </br></br>
-                <p>Filtering options:</p>
+                <!--</br></br>
+                <p>Filtering options:</p>-->
                 {{ embed(roots.control_panel) }}
             </div>
         </div>
