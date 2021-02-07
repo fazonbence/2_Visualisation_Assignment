@@ -51,6 +51,7 @@ def get_bar(data_provider: HeartFailureProvider) -> Figure:
     )
 
     p.y_range.range_padding = 0.1
+    p.xaxis.axis_label = "Number of Patients"
     p.ygrid.grid_line_color = None
     p.legend.location = "top_right"
     p.axis.minor_tick_line_color = None
